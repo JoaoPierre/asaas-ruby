@@ -14,6 +14,7 @@ require_relative "asaas/resources/webhook"
 require_relative "asaas/resources/finance"
 require_relative "asaas/resources/pix"
 require_relative "asaas/resources/payment_link"
+require_relative "asaas/resources/transfer"
 require_relative "asaas/resources/installment"
 
 module Asaas
