@@ -3,6 +3,7 @@
 require_relative "asaas/version"
 require_relative "asaas/configuration"
 require_relative "asaas/errors"
+require_relative "asaas/client"
 
 module Asaas
   @config = Configuration.new
