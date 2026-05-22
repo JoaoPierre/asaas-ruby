@@ -11,6 +11,7 @@ require_relative "asaas/resources/customer"
 require_relative "asaas/resources/payment"
 require_relative "asaas/resources/subscription"
 require_relative "asaas/resources/webhook"
+require_relative "asaas/resources/finance"
 
 module Asaas
   @config = Configuration.new
