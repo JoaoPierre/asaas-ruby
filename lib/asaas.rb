@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
+require_relative "asaas/version"
+
 module Asaas
-  module Ruby
-    VERSION = "0.1.0"
-  end
 end
