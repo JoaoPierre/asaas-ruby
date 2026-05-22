@@ -12,6 +12,7 @@ require_relative "asaas/resources/payment"
 require_relative "asaas/resources/subscription"
 require_relative "asaas/resources/webhook"
 require_relative "asaas/resources/finance"
+require_relative "asaas/resources/pix"
 require_relative "asaas/resources/payment_link"
 require_relative "asaas/resources/installment"
 
