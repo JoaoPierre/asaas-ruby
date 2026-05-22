@@ -1,6 +1,32 @@
 # frozen_string_literal: true
 
 require_relative "asaas/version"
+require_relative "asaas/configuration"
 
 module Asaas
+  @config = Configuration.new
+
+  class << self
+    attr_reader :config
+
+    def configure
+      yield @config
+    end
+
+    def api_key=(key)
+      @config.api_key = key
+    end
+
+    def api_key
+      @config.api_key
+    end
+
+    def sandbox=(val)
+      @config.sandbox = val
+    end
+
+    def sandbox?
+      @config.sandbox
+    end
+  end
 end
