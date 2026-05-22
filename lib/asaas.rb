@@ -6,6 +6,7 @@ require_relative "asaas/errors"
 require_relative "asaas/asaas_object"
 require_relative "asaas/list_object"
 require_relative "asaas/client"
+require_relative "asaas/resources/base"
 
 module Asaas
   @config = Configuration.new
