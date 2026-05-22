@@ -8,6 +8,7 @@ require_relative "asaas/list_object"
 require_relative "asaas/client"
 require_relative "asaas/resources/base"
 require_relative "asaas/resources/customer"
+require_relative "asaas/resources/payment"
 
 module Asaas
   @config = Configuration.new
