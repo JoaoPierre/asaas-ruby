@@ -9,6 +9,13 @@ module Asaas
   class Client
     RETRY_STATUSES     = [429, 500, 502, 503, 504].freeze
     IDEMPOTENT_METHODS = %i[post put patch].freeze
+    HTTP_METHODS = {
+      get: Net::HTTP::Get,
+      post: Net::HTTP::Post,
+      put: Net::HTTP::Put,
+      patch: Net::HTTP::Patch,
+      delete: Net::HTTP::Delete
+    }.freeze
 
     def initialize(config = Asaas.config)
       @config = config
@@ -78,17 +85,33 @@ module Asaas
     end
 
     def build_request(method, uri, headers, body)
-      klass = {
-        get: Net::HTTP::Get,
-        post: Net::HTTP::Post,
-        put: Net::HTTP::Put,
-        patch: Net::HTTP::Patch,
-        delete: Net::HTTP::Delete
-      }.fetch(method)
-
-      req      = klass.new(uri.request_uri, headers)
-      req.body = JSON.generate(body) if body.any?
+      req = HTTP_METHODS.fetch(method).new(uri.request_uri, headers)
+      encode_body(req, body) if body.any?
       req
+    end
+
+    def encode_body(req, body)
+      if multipart?(body)
+        req.delete("Content-Type")
+        req.set_form(to_multipart_parts(body), "multipart/form-data")
+      else
+        req.body = JSON.generate(body)
+      end
+    end
+
+    def multipart?(params)
+      params.values.any? { |v| v.respond_to?(:read) }
+    end
+
+    def to_multipart_parts(params)
+      params.map do |k, v|
+        if v.respond_to?(:read)
+          filename = v.respond_to?(:path) ? File.basename(v.path) : k.to_s
+          [k.to_s, v, { filename: filename }]
+        else
+          [k.to_s, v.to_s]
+        end
+      end
     end
 
     def parse_response(res)
@@ -147,7 +170,15 @@ module Asaas
     def log_request(method, uri, body)
       return unless @config.logger
 
-      @config.logger.debug("[Asaas] --> #{method.upcase} #{uri}#{body.any? ? " #{body.to_json}" : ""}")
+      body_log = if body.none?
+                   ""
+                 elsif multipart?(body)
+                   " [multipart/form-data: #{body.keys.join(", ")}]"
+                 else
+                   " #{body.to_json}"
+                 end
+
+      @config.logger.debug("[Asaas] --> #{method.upcase} #{uri}#{body_log}")
     end
 
     def log_response(res)

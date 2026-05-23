@@ -184,6 +184,41 @@ RSpec.describe Asaas::Client do
       end
     end
 
+    context "multipart/form-data" do
+      it "sends multipart when a param value is an IO" do
+        stub = stub_request(:post, "#{base_url}/paymentLinks/lnk_1/images")
+               .with(headers: { "Content-Type" => %r{multipart/form-data} })
+               .to_return(status: 200, body: { "id" => "img_1" }.to_json)
+
+        client.request(:post, "/paymentLinks/lnk_1/images", params: { image: StringIO.new("data") })
+
+        expect(stub).to have_been_requested
+      end
+
+      it "does not send application/json when body has an IO param" do
+        json_stub = stub_request(:post, "#{base_url}/paymentLinks/lnk_1/images")
+                    .with(headers: { "Content-Type" => "application/json" })
+                    .to_return(status: 200, body: {}.to_json)
+        stub_request(:post, "#{base_url}/paymentLinks/lnk_1/images")
+          .with(headers: { "Content-Type" => %r{multipart/form-data} })
+          .to_return(status: 200, body: {}.to_json)
+
+        client.request(:post, "/paymentLinks/lnk_1/images", params: { image: StringIO.new("data") })
+
+        expect(json_stub).not_to have_been_requested
+      end
+
+      it "sends JSON normally when no param is an IO" do
+        stub = stub_request(:post, "#{base_url}/customers")
+               .with(headers: { "Content-Type" => "application/json" })
+               .to_return(status: 200, body: { "id" => "cus_1" }.to_json)
+
+        client.request(:post, "/customers", params: { name: "Maria" })
+
+        expect(stub).to have_been_requested
+      end
+    end
+
     context "configuration" do
       it "raises ConfigurationError when api_key is nil" do
         Asaas.configure { |c| c.api_key = nil }

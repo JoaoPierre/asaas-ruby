@@ -63,10 +63,13 @@ RSpec.describe Asaas::Resources::PaymentLink do
   end
 
   describe ".add_image" do
-    it "POSTs to /paymentLinks/:id/images and returns an AsaasObject" do
-      stub_asaas(:post, "/paymentLinks/#{id}/images", body: { "id" => "img_1", "main" => true })
+    it "POSTs to /paymentLinks/:id/images as multipart/form-data and returns an AsaasObject" do
+      stub_request(:post, "#{ASAAS_BASE_URL}/paymentLinks/#{id}/images")
+        .with(headers: { "Content-Type" => %r{multipart/form-data} })
+        .to_return(status: 200, body: { "id" => "img_1", "main" => true }.to_json,
+                   headers: { "Content-Type" => "application/json" })
 
-      result = described_class.add_image(id, image: "base64data")
+      result = described_class.add_image(id, image: StringIO.new("fake-image-data"))
 
       expect(result).to be_a(Asaas::AsaasObject)
       expect(result.main?).to be true
