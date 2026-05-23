@@ -22,11 +22,12 @@ module Asaas
     def request(method, path, params: {}, headers: {})
       validate_config!
 
-      uri  = build_uri(path, method == :get ? params : {})
+      uri = build_uri(path, method == :get ? params : {})
       body = method != :get ? params : {}
+      idempotency_key = SecureRandom.uuid if IDEMPOTENT_METHODS.include?(method)
 
       with_retries do
-        perform(method, uri, body, build_headers(method, headers))
+        perform(method, uri, body, build_headers(headers, idempotency_key))
       end
     end
 
@@ -44,14 +45,14 @@ module Asaas
       uri
     end
 
-    def build_headers(method, extra = {})
+    def build_headers(extra = {}, idempotency_key = nil)
       headers = {
         "Content-Type" => "application/json",
         "Accept" => "application/json",
         "access_token" => @config.api_key,
         "User-Agent" => "AsaasRuby/#{Asaas::VERSION}"
       }
-      headers["Idempotency-Key"] = SecureRandom.uuid if IDEMPOTENT_METHODS.include?(method)
+      headers["Idempotency-Key"] = idempotency_key if idempotency_key
       headers.merge(extra)
     end
 

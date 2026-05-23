@@ -70,6 +70,28 @@ RSpec.describe Asaas::Client do
 
         expect(stub).to have_been_requested
       end
+
+      it "reuses the same Idempotency-Key across retries" do
+        Asaas.configure do |c|
+          c.api_key     = api_key
+          c.sandbox     = true
+          c.max_retries = 1
+          c.retry_delay = 0
+        end
+
+        received_keys = []
+
+        stub_request(:post, "#{base_url}/customers")
+          .to_return do |req|
+            received_keys << req.headers["Idempotency-Key"]
+            received_keys.size == 1 ? { status: 500, body: {}.to_json } : { status: 200, body: {}.to_json }
+          end
+
+        client.request(:post, "/customers", params: {})
+
+        expect(received_keys.size).to eq(2)
+        expect(received_keys.uniq.size).to eq(1)
+      end
     end
 
     context "authentication" do
