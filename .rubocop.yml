@@ -4,6 +4,8 @@ AllCops:
   Exclude:
     - "hello_world.rb"
 
+plugins: []
+
 Style/StringLiterals:
   EnforcedStyle: double_quotes
 
