@@ -40,6 +40,10 @@ module Asaas
   class ConnectionError          < AsaasError; end
   # sdk config
   class ConfigurationError       < AsaasError; end
+  # webhook token missing or mismatched
+  class WebhookVerificationError < AsaasError; end
+  # webhook payload is not valid JSON
+  class InvalidPayloadError      < AsaasError; end
 
   def self.error_for_status(http_status, http_body, request_id)
     message = extract_message(http_body)
