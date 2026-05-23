@@ -20,21 +20,31 @@ module Asaas
     end
   end
 
-  class InvalidRequestError      < AsaasError; end  # 400
-  class AuthenticationError      < AsaasError; end  # 401
-  class PermissionError          < AsaasError; end  # 403
-  class NotFoundError            < AsaasError; end  # 404
-  class ConflictError            < AsaasError; end  # 409
-  class UnprocessableEntityError < AsaasError; end  # 422
-  class RateLimitError           < AsaasError; end  # 429
-  class ServerError              < AsaasError; end  # 5xx
-  class ConnectionError          < AsaasError; end  # network
-  class ConfigurationError       < AsaasError; end  # sdk config
+  # 400
+  class InvalidRequestError      < AsaasError; end
+  # 401
+  class AuthenticationError      < AsaasError; end
+  # 403
+  class PermissionError          < AsaasError; end
+  # 404
+  class NotFoundError            < AsaasError; end
+  # 409
+  class ConflictError            < AsaasError; end
+  # 422
+  class UnprocessableEntityError < AsaasError; end
+  # 429
+  class RateLimitError           < AsaasError; end
+  # 5xx
+  class ServerError              < AsaasError; end
+  # network
+  class ConnectionError          < AsaasError; end
+  # sdk config
+  class ConfigurationError       < AsaasError; end
 
   def self.error_for_status(http_status, http_body, request_id)
-    message    = extract_message(http_body)
+    message = extract_message(http_body)
     errors = extract_errors(http_body)
-    kwargs     = { http_status:, http_body:, request_id:, errors: }
+    kwargs = { http_status:, http_body:, request_id:, errors: }
 
     case http_status
     when 400 then InvalidRequestError.new(message, **kwargs)

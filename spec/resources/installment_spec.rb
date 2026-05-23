@@ -10,7 +10,8 @@ RSpec.describe Asaas::Resources::Installment do
     it "POSTs to /installments and returns an AsaasObject" do
       stub_asaas(:post, "/installments", body: installment_attrs)
 
-      result = described_class.create(customer: "cus_1", value: 1200.0, installmentCount: 12, billingType: "CREDIT_CARD")
+      result = described_class.create(customer: "cus_1", value: 1200.0, installmentCount: 12,
+                                      billingType: "CREDIT_CARD")
 
       expect(result).to be_a(Asaas::AsaasObject)
       expect(result.installmentCount).to eq(12)

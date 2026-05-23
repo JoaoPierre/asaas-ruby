@@ -21,7 +21,8 @@ RSpec.describe Asaas::Client do
     context "GET" do
       it "returns parsed JSON body on success" do
         stub_request(:get, "#{base_url}/customers")
-          .to_return(status: 200, body: { "totalCount" => 1 }.to_json, headers: { "Content-Type" => "application/json" })
+          .to_return(status: 200, body: { "totalCount" => 1 }.to_json,
+                     headers: { "Content-Type" => "application/json" })
 
         result = client.request(:get, "/customers")
 

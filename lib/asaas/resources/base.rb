@@ -33,7 +33,6 @@ module Asaas
         response = client.request(:get, resource_path, params: params)
         ListObject.construct_from(response, client: client, path: resource_path, params: params)
       end
-
     end
   end
 end
