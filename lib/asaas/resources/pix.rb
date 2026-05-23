@@ -2,7 +2,9 @@
 
 module Asaas
   module Resources
-    class Pix < Base
+    class Pix
+      extend HasClient
+
       def self.create_key(params = {})
         response = client.request(:post, "/pix/keys", params: params)
         AsaasObject.construct_from(response)

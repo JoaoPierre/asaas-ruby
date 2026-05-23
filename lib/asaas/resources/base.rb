@@ -3,6 +3,8 @@
 module Asaas
   module Resources
     class Base
+      extend HasClient
+
       def self.resource_path
         raise NotImplementedError, "#{name} must define resource_path"
       end
@@ -32,11 +34,6 @@ module Asaas
         ListObject.construct_from(response, client: client, path: resource_path, params: params)
       end
 
-      def self.client
-        Client.new
-      end
-
-      private_class_method :client
     end
   end
 end

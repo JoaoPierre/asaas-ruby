@@ -2,7 +2,9 @@
 
 module Asaas
   module Resources
-    class Split < Base
+    class Split
+      extend HasClient
+
       SPLITS_PAID = "/splits/paid"
       SPLITS_RECEIVED = "/splits/received"
 

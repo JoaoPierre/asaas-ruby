@@ -2,7 +2,9 @@
 
 module Asaas
   module Resources
-    class Finance < Base
+    class Finance
+      extend HasClient
+
       def self.balance
         response = client.request(:get, "/finance/account/balance")
         AsaasObject.construct_from(response)
