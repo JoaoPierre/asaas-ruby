@@ -110,14 +110,16 @@ module Asaas
 
     def with_retries
       attempts = 0
-      yield
-    rescue RateLimitError, ServerError, ConnectionError => e
-      attempts += 1
-      if attempts <= @config.max_retries && retryable?(e)
-        sleep(@config.retry_delay * (2**(attempts - 1)))
-        retry
+      begin
+        yield
+      rescue RateLimitError, ServerError, ConnectionError => e
+        attempts += 1
+        if attempts <= @config.max_retries && retryable?(e)
+          sleep(@config.retry_delay * (2**(attempts - 1)))
+          retry
+        end
+        raise
       end
-      raise
     end
 
     def retryable?(error)
