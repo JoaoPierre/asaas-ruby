@@ -18,6 +18,7 @@ require_relative "asaas/resources/transfer"
 require_relative "asaas/resources/installment"
 require_relative "asaas/resources/checkout"
 require_relative "asaas/resources/invoice"
+require_relative "asaas/resources/split"
 require_relative "asaas/resources/anticipation"
 require_relative "asaas/resources/notification"
 
