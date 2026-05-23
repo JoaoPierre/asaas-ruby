@@ -1,6 +1,8 @@
 AllCops:
-  TargetRubyVersion: 3.2
+  TargetRubyVersion: 3.3
   SuggestExtensions: false
+  Exclude:
+    - "hello_world.rb"
 
 Style/StringLiterals:
   EnforcedStyle: double_quotes
