@@ -25,6 +25,7 @@ require_relative "asaas/resources/notification"
 require_relative "asaas/resources/dunning"
 require_relative "asaas/resources/chargeback"
 require_relative "asaas/resources/subaccount"
+require_relative "asaas/resources/bill_payment"
 require_relative "asaas/resources/pix_automatic"
 
 module Asaas
