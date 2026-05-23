@@ -154,15 +154,13 @@ module Asaas
       end
     end
 
-    # TODO: Array values (e.g. { ids: [1,2,3] }) are not serialized
-    # revisit if any endpoint needs array query params
     def flatten_params(params, prefix = nil)
       params.each_with_object({}) do |(k, v), result|
         key = prefix ? "#{prefix}[#{k}]" : k.to_s
-        if v.is_a?(Hash)
-          result.merge!(flatten_params(v, key))
-        else
-          result[key] = v
+        case v
+        when Hash  then result.merge!(flatten_params(v, key))
+        when Array then result[key] = v.join(",")
+        else            result[key] = v
         end
       end
     end

@@ -48,6 +48,16 @@ RSpec.describe Asaas::Client do
 
         expect(stub).to have_been_requested
       end
+
+      it "serializes array params as comma-separated values" do
+        stub = stub_request(:get, "#{base_url}/payments")
+               .with(query: { "status" => "PENDING,OVERDUE" })
+               .to_return(status: 200, body: {}.to_json)
+
+        client.request(:get, "/payments", params: { status: %w[PENDING OVERDUE] })
+
+        expect(stub).to have_been_requested
+      end
     end
 
     context "POST" do
