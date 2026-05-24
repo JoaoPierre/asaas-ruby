@@ -5,8 +5,8 @@ module Asaas
     class Split
       extend HasClient
 
-      SPLITS_PAID = "/splits/paid"
-      SPLITS_RECEIVED = "/splits/received"
+      SPLITS_PAID = "/payments/splits/paid"
+      SPLITS_RECEIVED = "/payments/splits/received"
 
       def self.paid(params = {})
         response = client.request(:get, SPLITS_PAID, params: params)

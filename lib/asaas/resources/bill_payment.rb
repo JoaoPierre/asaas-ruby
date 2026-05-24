@@ -3,7 +3,7 @@
 module Asaas
   module Resources
     class BillPayment < Base
-      def self.resource_path = "/bills"
+      def self.resource_path = "/bill"
     end
   end
 end
