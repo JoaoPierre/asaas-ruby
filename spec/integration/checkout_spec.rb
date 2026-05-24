@@ -16,7 +16,8 @@ RSpec.describe Asaas::Resources::Checkout, :vcr do
       chargeTypes: %w[DETACHED],
       name: "VCR Checkout",
       endDate: "2026-12-31",
-      callback: { successUrl: "https://example.com/success", cancelUrl: "https://example.com/cancel", autoRedirect: false },
+      callback: { successUrl: "https://example.com/success", cancelUrl: "https://example.com/cancel",
+                  autoRedirect: false },
       items: [{ name: "VCR Item", description: "Test item", quantity: 1, value: 150.0 }]
     }
   end
