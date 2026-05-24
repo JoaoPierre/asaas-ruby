@@ -2,6 +2,7 @@
 
 require "asaas"
 require "webmock/rspec"
+require_relative "support/vcr"
 
 ASAAS_BASE_URL = "https://sandbox.asaas.com/api/v3"
 
