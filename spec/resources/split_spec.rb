@@ -6,8 +6,8 @@ RSpec.describe Asaas::Resources::Split do
   let(:split_attrs) { { "id" => "spl_1", "value" => 30.0, "status" => "DONE" } }
 
   describe ".paid" do
-    it "GETs /splits/paid and returns a ListObject" do
-      stub_asaas(:get, "/splits/paid", body: list_response([split_attrs]))
+    it "GETs /payments/splits/paid and returns a ListObject" do
+      stub_asaas(:get, "/payments/splits/paid", body: list_response([split_attrs]))
 
       result = described_class.paid
 
@@ -17,8 +17,8 @@ RSpec.describe Asaas::Resources::Split do
   end
 
   describe ".received" do
-    it "GETs /splits/received and returns a ListObject" do
-      stub_asaas(:get, "/splits/received", body: list_response([split_attrs]))
+    it "GETs /payments/splits/received and returns a ListObject" do
+      stub_asaas(:get, "/payments/splits/received", body: list_response([split_attrs]))
 
       result = described_class.received
 
@@ -28,8 +28,8 @@ RSpec.describe Asaas::Resources::Split do
   end
 
   describe ".retrieve_paid" do
-    it "GETs /splits/paid/:id and returns an AsaasObject" do
-      stub_asaas(:get, "/splits/paid/spl_1", body: split_attrs)
+    it "GETs /payments/splits/paid/:id and returns an AsaasObject" do
+      stub_asaas(:get, "/payments/splits/paid/spl_1", body: split_attrs)
 
       result = described_class.retrieve_paid("spl_1")
 
@@ -39,8 +39,8 @@ RSpec.describe Asaas::Resources::Split do
   end
 
   describe ".retrieve_received" do
-    it "GETs /splits/received/:id and returns an AsaasObject" do
-      stub_asaas(:get, "/splits/received/spl_1", body: split_attrs)
+    it "GETs /payments/splits/received/:id and returns an AsaasObject" do
+      stub_asaas(:get, "/payments/splits/received/spl_1", body: split_attrs)
 
       result = described_class.retrieve_received("spl_1")
 
