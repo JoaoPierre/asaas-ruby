@@ -3,7 +3,7 @@
 module Asaas
   module Resources
     class Subaccount < Base
-      def self.resource_path = "/subaccounts"
+      def self.resource_path = "/accounts"
 
       def self.create_api_key(id)
         response = client.request(:post, "#{resource_path}/#{id}/apiKeys")

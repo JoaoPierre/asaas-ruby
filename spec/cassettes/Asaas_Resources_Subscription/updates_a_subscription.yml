@@ -1,0 +1,169 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://sandbox.asaas.com/api/v3/customers
+    body:
+      encoding: UTF-8
+      string: '{"name":"VCR Subscription Update","email":"vcr-sub-update@test.com","cpfCnpj":"35932640804"}'
+    headers:
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      Access-Token:
+      - "<ASAAS_API_KEY>"
+      User-Agent:
+      - AsaasRuby/0.1.0
+      Idempotency-Key:
+      - fc48023c-0229-40db-9c19-8085b4e87dcd
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Date:
+      - Sat, 23 May 2026 20:18:08 GMT
+      Vary:
+      - Access-Control-Request-Headers
+      - Access-Control-Request-Method
+      - Origin
+      Set-Cookie:
+      - JSESSIONID=5D3A6C050A39F56B21FA0AE5049C5F6AEFFD6B98311778DCD629FC9EC479685B60C7E0109793EC0206FACCF4EDD234021036A682B3FAAC8FC5FE36B8559CEDC8.n2;
+        Path=/; Secure; HttpOnly
+      Server:
+      - nginx
+      X-Cache:
+      - Miss from cloudfront
+      Via:
+      - 1.1 31cb96eb609fe7e044ddb84ad336c356.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - GIG51-P3
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      X-Amz-Cf-Id:
+      - 0JXum2ccCR38kCCVd2idpRfBztAW4-2JjJ11Sbgqjey1K0dG3K5BFw==
+    body:
+      encoding: UTF-8
+      string: '{"object":"customer","id":"cus_000008024678","dateCreated":"2026-05-23","name":"VCR
+        Subscription Update","email":"vcr-sub-update@test.com","company":null,"phone":null,"mobilePhone":null,"address":null,"addressNumber":null,"complement":null,"province":null,"postalCode":null,"cpfCnpj":"35932640804","personType":"FISICA","deleted":false,"additionalEmails":null,"externalReference":null,"notificationDisabled":false,"observations":null,"municipalInscription":null,"stateInscription":null,"canDelete":true,"cannotBeDeletedReason":null,"canEdit":true,"cannotEditReason":null,"city":null,"cityName":null,"state":null,"country":"Brasil"}'
+  recorded_at: Sat, 23 May 2026 20:18:08 GMT
+- request:
+    method: post
+    uri: https://sandbox.asaas.com/api/v3/subscriptions
+    body:
+      encoding: UTF-8
+      string: '{"customer":"cus_000008024678","billingType":"BOLETO","value":19.9,"nextDueDate":"2026-12-31","cycle":"MONTHLY"}'
+    headers:
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      Access-Token:
+      - "<ASAAS_API_KEY>"
+      User-Agent:
+      - AsaasRuby/0.1.0
+      Idempotency-Key:
+      - af9cac11-82c9-4b90-8ec9-712c1d698e6f
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Date:
+      - Sat, 23 May 2026 20:18:09 GMT
+      Vary:
+      - Access-Control-Request-Headers
+      - Access-Control-Request-Method
+      - Origin
+      Set-Cookie:
+      - JSESSIONID=11334F900311A4D937E968B0BD77FA1F68348EE08A4F63D67E41559EF10393928ED8F73D2A168BC3AA7E3A2AFC9946A9ABD261A626EB34109F076889479C24F9.n1;
+        Path=/; Secure; HttpOnly
+      Server:
+      - nginx
+      X-Cache:
+      - Miss from cloudfront
+      Via:
+      - 1.1 1c95a03d94fd1bb3196521ca1057f0f2.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - GIG51-P3
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      X-Amz-Cf-Id:
+      - a6l5DqMI0gzZQOKtsW8_acxn1EXWq6D3diVQjL7iC4td3eZ7ibq5aA==
+    body:
+      encoding: UTF-8
+      string: '{"object":"subscription","id":"sub_1f9rsx50b6ajewgy","dateCreated":"2026-05-23","customer":"cus_000008024678","paymentLink":null,"value":19.90,"nextDueDate":"2027-01-31","cycle":"MONTHLY","description":null,"billingType":"BOLETO","deleted":false,"status":"ACTIVE","externalReference":null,"checkoutSession":null,"sendPaymentByPostalService":false,"fine":{"value":0,"type":"FIXED"},"interest":{"value":0,"type":"PERCENTAGE"},"split":null}'
+  recorded_at: Sat, 23 May 2026 20:18:09 GMT
+- request:
+    method: put
+    uri: https://sandbox.asaas.com/api/v3/subscriptions/sub_1f9rsx50b6ajewgy
+    body:
+      encoding: UTF-8
+      string: '{"value":39.9}'
+    headers:
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      Access-Token:
+      - "<ASAAS_API_KEY>"
+      User-Agent:
+      - AsaasRuby/0.1.0
+      Idempotency-Key:
+      - 147a8689-b4a4-49e6-9791-53e587d8f509
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Date:
+      - Sat, 23 May 2026 20:18:09 GMT
+      Vary:
+      - Access-Control-Request-Headers
+      - Access-Control-Request-Method
+      - Origin
+      Set-Cookie:
+      - JSESSIONID=CE5F5A2A285A31438CD7C87CA6F7E1AE78D0F141DE9E3D35918A3E8927F9A1328A56A3F134D191B832B6998F00AA8B016B61D0C3123532F57014D450CE35CE43.n2;
+        Path=/; Secure; HttpOnly
+      Server:
+      - nginx
+      X-Cache:
+      - Miss from cloudfront
+      Via:
+      - 1.1 55386deb86c59f69358ba08b0e38ed30.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - GIG51-P3
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      X-Amz-Cf-Id:
+      - NjCR8F_VPnIRHYtsAuisZZv4Joe7s5NPwg7yWqy7Jdf9Q9LbRE8B-Q==
+    body:
+      encoding: UTF-8
+      string: '{"object":"subscription","id":"sub_1f9rsx50b6ajewgy","dateCreated":"2026-05-23","customer":"cus_000008024678","paymentLink":null,"value":39.90,"nextDueDate":"2027-01-31","cycle":"MONTHLY","description":null,"billingType":"BOLETO","deleted":false,"status":"ACTIVE","externalReference":null,"checkoutSession":null,"sendPaymentByPostalService":false,"fine":{"value":0.00,"type":"FIXED"},"interest":{"value":0.00,"type":"PERCENTAGE"},"split":null}'
+  recorded_at: Sat, 23 May 2026 20:18:09 GMT
+recorded_with: VCR 6.4.0

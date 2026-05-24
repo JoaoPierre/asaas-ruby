@@ -7,8 +7,8 @@ RSpec.describe Asaas::Resources::PixAutomatic do
   let(:authorization_attrs) { { "id" => id, "status" => "ACTIVE", "value" => 99.90 } }
 
   describe ".create" do
-    it "POSTs to /pix/authorizations and returns an AsaasObject" do
-      stub_asaas(:post, "/pix/authorizations", body: authorization_attrs)
+    it "POSTs to /pix/automatic/authorizations and returns an AsaasObject" do
+      stub_asaas(:post, "/pix/automatic/authorizations", body: authorization_attrs)
 
       result = described_class.create(customer: "cus_1", value: 99.90)
 
@@ -18,8 +18,8 @@ RSpec.describe Asaas::Resources::PixAutomatic do
   end
 
   describe ".list" do
-    it "GETs /pix/authorizations and returns a ListObject" do
-      stub_asaas(:get, "/pix/authorizations", body: list_response([authorization_attrs]))
+    it "GETs /pix/automatic/authorizations and returns a ListObject" do
+      stub_asaas(:get, "/pix/automatic/authorizations", body: list_response([authorization_attrs]))
 
       result = described_class.list
 
@@ -29,8 +29,8 @@ RSpec.describe Asaas::Resources::PixAutomatic do
   end
 
   describe ".delete" do
-    it "DELETEs /pix/authorizations/:id (cancel)" do
-      stub_asaas(:delete, "/pix/authorizations/#{id}", body: { "deleted" => true })
+    it "DELETEs /pix/automatic/authorizations/:id (cancel)" do
+      stub_asaas(:delete, "/pix/automatic/authorizations/#{id}", body: { "deleted" => true })
 
       result = described_class.delete(id)
 

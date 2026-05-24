@@ -1,0 +1,112 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://sandbox.asaas.com/api/v3/customers
+    body:
+      encoding: UTF-8
+      string: '{"name":"VCR Test Delete","email":"vcr-delete@test.com","cpfCnpj":"11144477735"}'
+    headers:
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      Access-Token:
+      - "<ASAAS_API_KEY>"
+      User-Agent:
+      - AsaasRuby/0.1.0
+      Idempotency-Key:
+      - 03e560f3-93ac-4b1a-a635-c3f9f3760439
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Date:
+      - Sat, 23 May 2026 19:28:41 GMT
+      Vary:
+      - Access-Control-Request-Headers
+      - Access-Control-Request-Method
+      - Origin
+      Set-Cookie:
+      - JSESSIONID=B2C80856E8613D1644B80FD39AE5614120B851E20815482BE8E056EEF37A50CA33D9546E3CD3596B4906BE433D0BA59DAC9A52CD552DFEC3750DA90CD46EC4DF.n1;
+        Path=/; Secure; HttpOnly
+      Server:
+      - nginx
+      X-Cache:
+      - Miss from cloudfront
+      Via:
+      - 1.1 ebdab0b6f15b52fb25bef6840de9c80c.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - GIG51-P3
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      X-Amz-Cf-Id:
+      - ic33pOYX2PnmP7YdongGpP-B9ZnIhatYfjzML0nrs1aGy4AkxXQLzQ==
+    body:
+      encoding: UTF-8
+      string: '{"object":"customer","id":"cus_000008024484","dateCreated":"2026-05-23","name":"VCR
+        Test Delete","email":"vcr-delete@test.com","company":null,"phone":null,"mobilePhone":null,"address":null,"addressNumber":null,"complement":null,"province":null,"postalCode":null,"cpfCnpj":"11144477735","personType":"FISICA","deleted":false,"additionalEmails":null,"externalReference":null,"notificationDisabled":false,"observations":null,"municipalInscription":null,"stateInscription":null,"canDelete":true,"cannotBeDeletedReason":null,"canEdit":true,"cannotEditReason":null,"city":null,"cityName":null,"state":null,"country":"Brasil"}'
+  recorded_at: Sat, 23 May 2026 19:28:42 GMT
+- request:
+    method: delete
+    uri: https://sandbox.asaas.com/api/v3/customers/cus_000008024484
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      Access-Token:
+      - "<ASAAS_API_KEY>"
+      User-Agent:
+      - AsaasRuby/0.1.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Date:
+      - Sat, 23 May 2026 19:28:42 GMT
+      Vary:
+      - Access-Control-Request-Headers
+      - Access-Control-Request-Method
+      - Origin
+      Set-Cookie:
+      - JSESSIONID=1AF8821AA776B3B11C76F98BFCD9B1986A4DC92F38CF8CF6FC656469895AF9598C3F8941A685B563866182BFA7C6D44A82007E40CD9B6614BAFBB0148352DA5E.n1;
+        Path=/; Secure; HttpOnly
+      Server:
+      - nginx
+      X-Cache:
+      - Miss from cloudfront
+      Via:
+      - 1.1 e33021a982783e51e0386debf6f384de.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - GIG51-P3
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      X-Amz-Cf-Id:
+      - v5hAv29z-MZBFEtWn-yuPryjWHbPZgVqT8eXIC0qduwjRDm2NId5xg==
+    body:
+      encoding: UTF-8
+      string: '{"deleted":true,"id":"cus_000008024484"}'
+  recorded_at: Sat, 23 May 2026 19:28:42 GMT
+recorded_with: VCR 6.4.0

@@ -1,0 +1,112 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://sandbox.asaas.com/api/v3/webhooks
+    body:
+      encoding: UTF-8
+      string: '{"url":"https://vcr-delete.example.com/webhook","email":"vcr@example.com","name":"VCR
+        Test Webhook","sendType":"SEQUENTIALLY","enabled":true,"interrupted":false,"apiVersion":3,"authToken":"vcr-test-webhook-authtoken-secure-1234","events":["PAYMENT_RECEIVED","PAYMENT_OVERDUE"]}'
+    headers:
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      Access-Token:
+      - "<ASAAS_API_KEY>"
+      User-Agent:
+      - AsaasRuby/0.1.0
+      Idempotency-Key:
+      - 19b4d5fa-c9e9-4fbe-a0e9-bc76d6ed33f7
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Date:
+      - Sat, 23 May 2026 20:38:54 GMT
+      Vary:
+      - Access-Control-Request-Headers
+      - Access-Control-Request-Method
+      - Origin
+      Set-Cookie:
+      - JSESSIONID=D76972ECD88BC7655117BD51873989E3E4A7F71E5C5738BE0E57EB8B1A33A54E252AD6F2FEB1644490CEDE3ED518723864C073B039FCC6F63127661917E1A123.n1;
+        Path=/; Secure; HttpOnly
+      Server:
+      - nginx
+      X-Cache:
+      - Miss from cloudfront
+      Via:
+      - 1.1 1c95a03d94fd1bb3196521ca1057f0f2.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - GIG51-P3
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      X-Amz-Cf-Id:
+      - vvoZ9CNQhjC_JCBlPUOHIfEkw5TzGlu3F5-UhXfysTYioJakPGuqXQ==
+    body:
+      encoding: UTF-8
+      string: '{"id":"aa79520f-7a20-4802-8bb4-20c39d991d03","name":"VCR Test Webhook","url":"https://vcr-delete.example.com/webhook","email":"vcr@example.com","enabled":true,"interrupted":false,"apiVersion":3,"hasAuthToken":true,"sendType":"SEQUENTIALLY","penalizedRequestsCount":0,"events":["PAYMENT_OVERDUE","PAYMENT_RECEIVED"],"authToken":"vcr-test-webhook-authtoken-secure-1234"}'
+  recorded_at: Sat, 23 May 2026 20:38:54 GMT
+- request:
+    method: delete
+    uri: https://sandbox.asaas.com/api/v3/webhooks/aa79520f-7a20-4802-8bb4-20c39d991d03
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      Access-Token:
+      - "<ASAAS_API_KEY>"
+      User-Agent:
+      - AsaasRuby/0.1.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Date:
+      - Sat, 23 May 2026 20:38:54 GMT
+      Vary:
+      - Access-Control-Request-Headers
+      - Access-Control-Request-Method
+      - Origin
+      Set-Cookie:
+      - JSESSIONID=0C5B2448BBDDC6970385CD9A1A7B69B94294830B31B407F139759F4591F3079409AE73C4B4F4FDF7F56EBDA74C6948A07D7C081DE73F1B5072BEE2A01AD0F2B8.n1;
+        Path=/; Secure; HttpOnly
+      Server:
+      - nginx
+      X-Cache:
+      - Miss from cloudfront
+      Via:
+      - 1.1 982f68e5ce0c5125bcf7f53bb28a7988.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - GIG51-P3
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      X-Amz-Cf-Id:
+      - KhcpSB7eGzSNDoGtiCywBW2Z_znfPi1aAvcE-4z7daS7DZm0Yi9sQQ==
+    body:
+      encoding: UTF-8
+      string: '{"deleted":true,"id":"aa79520f-7a20-4802-8bb4-20c39d991d03"}'
+  recorded_at: Sat, 23 May 2026 20:38:54 GMT
+recorded_with: VCR 6.4.0

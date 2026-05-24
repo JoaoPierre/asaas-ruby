@@ -1,0 +1,55 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://sandbox.asaas.com/api/v3/paymentLinks?limit=5
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      Access-Token:
+      - "<ASAAS_API_KEY>"
+      User-Agent:
+      - AsaasRuby/0.1.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Date:
+      - Sat, 23 May 2026 20:20:57 GMT
+      Server:
+      - nginx
+      Vary:
+      - Access-Control-Request-Headers
+      - Access-Control-Request-Method
+      - Origin
+      X-Cache:
+      - Miss from cloudfront
+      Via:
+      - 1.1 9734ca29815e60a3ec8cc9631b6778e6.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - GIG51-P3
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      X-Amz-Cf-Id:
+      - imQmUCP0dWcmWaYMYibAGm9EHz-kfdMBVB-yt4I8SAwrLJFd3ijSKw==
+    body:
+      encoding: UTF-8
+      string: '{"object":"list","hasMore":false,"totalCount":2,"limit":5,"offset":0,"data":[{"id":"wqq2duqpgybzbziz","name":"VCR
+        Retrieve Link","value":75.00,"active":true,"chargeType":"DETACHED","url":"https://sandbox.asaas.com/c/wqq2duqpgybzbziz","billingType":"UNDEFINED","subscriptionCycle":null,"description":null,"endDate":"2026-12-31","deleted":false,"viewCount":0,"maxInstallmentCount":1,"dueDateLimitDays":5,"notificationEnabled":true,"isAddressRequired":null,"externalReference":null},{"id":"sake3y8zw6h24l5w","name":"VCR
+        Test Link","value":75.00,"active":true,"chargeType":"DETACHED","url":"https://sandbox.asaas.com/c/sake3y8zw6h24l5w","billingType":"UNDEFINED","subscriptionCycle":null,"description":null,"endDate":"2026-12-31","deleted":false,"viewCount":0,"maxInstallmentCount":1,"dueDateLimitDays":5,"notificationEnabled":true,"isAddressRequired":null,"externalReference":null}]}'
+  recorded_at: Sat, 23 May 2026 20:20:57 GMT
+recorded_with: VCR 6.4.0

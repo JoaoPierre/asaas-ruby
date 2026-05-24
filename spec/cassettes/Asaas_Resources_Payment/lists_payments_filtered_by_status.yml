@@ -1,0 +1,59 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://sandbox.asaas.com/api/v3/payments?status=PENDING,OVERDUE
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      Access-Token:
+      - "<ASAAS_API_KEY>"
+      User-Agent:
+      - AsaasRuby/0.1.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Date:
+      - Sat, 23 May 2026 19:25:11 GMT
+      Ratelimit-Remaining:
+      - '138'
+      Ratelimit-Reset:
+      - '59'
+      Server:
+      - nginx
+      Vary:
+      - Access-Control-Request-Headers
+      - Access-Control-Request-Method
+      - Origin
+      Ratelimit-Limit:
+      - '140'
+      X-Cache:
+      - Miss from cloudfront
+      Via:
+      - 1.1 f3a9512a287851a8c5cbcdbc9e1f7d60.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - GIG51-P3
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      X-Amz-Cf-Id:
+      - XLUva4-0u9J4Gs94AFkCsJcX-08q-TAxcnnsQyyAYsfpohNtD8sEzg==
+    body:
+      encoding: UTF-8
+      string: '{"object":"list","hasMore":false,"totalCount":0,"limit":10,"offset":0,"data":[]}'
+  recorded_at: Sat, 23 May 2026 19:25:11 GMT
+recorded_with: VCR 6.4.0

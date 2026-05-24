@@ -7,8 +7,8 @@ RSpec.describe Asaas::Resources::BillPayment do
   let(:bill_attrs) { { "id" => id, "status" => "PENDING", "value" => 150.0, "description" => "Conta de luz" } }
 
   describe ".create" do
-    it "POSTs to /bills and returns an AsaasObject" do
-      stub_asaas(:post, "/bills", body: bill_attrs)
+    it "POSTs to /bill and returns an AsaasObject" do
+      stub_asaas(:post, "/bill", body: bill_attrs)
 
       result = described_class.create(identificationField: "123456789", value: 150.0)
 
@@ -18,8 +18,8 @@ RSpec.describe Asaas::Resources::BillPayment do
   end
 
   describe ".retrieve" do
-    it "GETs /bills/:id and returns an AsaasObject" do
-      stub_asaas(:get, "/bills/#{id}", body: bill_attrs)
+    it "GETs /bill/:id and returns an AsaasObject" do
+      stub_asaas(:get, "/bill/#{id}", body: bill_attrs)
 
       result = described_class.retrieve(id)
 
@@ -29,8 +29,8 @@ RSpec.describe Asaas::Resources::BillPayment do
   end
 
   describe ".list" do
-    it "GETs /bills and returns a ListObject" do
-      stub_asaas(:get, "/bills", body: list_response([bill_attrs]))
+    it "GETs /bill and returns a ListObject" do
+      stub_asaas(:get, "/bill", body: list_response([bill_attrs]))
 
       result = described_class.list
 
@@ -40,8 +40,8 @@ RSpec.describe Asaas::Resources::BillPayment do
   end
 
   describe ".delete" do
-    it "DELETEs /bills/:id (cancel)" do
-      stub_asaas(:delete, "/bills/#{id}", body: { "deleted" => true })
+    it "DELETEs /bill/:id (cancel)" do
+      stub_asaas(:delete, "/bill/#{id}", body: { "deleted" => true })
 
       result = described_class.delete(id)
 

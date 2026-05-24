@@ -1,0 +1,106 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://sandbox.asaas.com/api/v3/pix/keys
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      Access-Token:
+      - "<ASAAS_API_KEY>"
+      User-Agent:
+      - AsaasRuby/0.1.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 404
+      message: ''
+    headers:
+      Content-Length:
+      - '0'
+      Connection:
+      - keep-alive
+      Date:
+      - Sun, 24 May 2026 00:29:41 GMT
+      Vary:
+      - Access-Control-Request-Headers
+      - Access-Control-Request-Method
+      - Origin
+      Server:
+      - nginx
+      X-Cache:
+      - Error from cloudfront
+      Via:
+      - 1.1 07c2ce2f526880d2d9a49a68d8e11008.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - GIG51-P3
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      X-Amz-Cf-Id:
+      - qk1c5paLvEwecNfhxRl8-JNnqI8T7_t9S0A1CvGfQvuLZkh0h7aWGQ==
+    body:
+      encoding: UTF-8
+      string: ''
+  recorded_at: Sun, 24 May 2026 00:29:41 GMT
+- request:
+    method: get
+    uri: https://sandbox.asaas.com/api/v3/pix/addressKeys
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      Access-Token:
+      - "<ASAAS_API_KEY>"
+      User-Agent:
+      - AsaasRuby/0.1.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Date:
+      - Sun, 24 May 2026 00:30:31 GMT
+      Vary:
+      - Access-Control-Request-Headers
+      - Access-Control-Request-Method
+      - Origin
+      Set-Cookie:
+      - JSESSIONID=9E26E8228835CD0D44C3C96DD8EB5E432673B3EA085A97A47445C3738CA742EED50448D5103F84F78BF14736BF9D116DFE80DE62F14AE4DECF42D6D0B66F04D9.n1;
+        Path=/; Secure; HttpOnly
+      Server:
+      - nginx
+      X-Cache:
+      - Miss from cloudfront
+      Via:
+      - 1.1 9734ca29815e60a3ec8cc9631b6778e6.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - GIG51-P3
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      X-Amz-Cf-Id:
+      - hwKH_o3a3pUiiF-BQOBEzdA6-HfO7GW_pi5jmsd6aJFf-OT88zvC0A==
+    body:
+      encoding: UTF-8
+      string: '{"totalCount":1,"limit":10,"offset":0,"hasMore":false,"data":[{"id":"32ca0f09-45e6-4735-9807-de219cb27572","key":"db59b121-dd36-4ee1-8e41-b2372b893cd1","type":"EVP","status":"ACTIVE","dateCreated":"2026-05-23
+        16:29:12","canBeDeleted":true,"cannotBeDeletedReason":null,"qrCode":{"encodedImage":"iVBORw0KGgoAAAANSUhEUgAAAcIAAAHCAQAAAABUY/ToAAADE0lEQVR4Xu2TS47cMBBDvfP9b5RjeecMPyU7AwQKZhM2wGq3usTiYy8kH/cP69fxXfnXKrmrkrsquauSuyq5q/9GXgfrVIefEzOs13nN4NTGzpLBpI2yfrnQYaVJveAnsmQyaZXuE1sAXNfJA+XIfMl4ElZu8QCS5x1d8oNIuDnn8c8dwEx5b2fJZPK2apxTtnJZeZwlo8mDRffmY2fJv34CyD/rPUfvC+BrsqpkLEkn/DLhEUuZALjZKaBkLDl+A+5PXAKsSxJPrmQyqfnyoV2iFz6iNS4ZS1rkD/wYEKUPrKEVUzKZxFxlcHLWXo3uAIJKJpNfKvqpi6iY2erDSC0lg8nXAcvuJGgmEKSLYL5kNinNb/f4IU6K0g2XDCapUJTvwqn7izRdApnGUzKahICHIRpZJcgISNOUTCalQSLsGB49G8wGGbhkLImWCE4c90CConQxNGZpUzKYPAlxna0C6JMoBQGKLBlLeiMrvTQzYm4FJfcclswl4SIEg77klaAAfKBgCrVkMAk3VmL0YQPIglxU9C2ZTNJzkhz/gRN3FrbStS0ZTWp/8z7QxOOWYivNljkpmUtCxNEffKlNPtLIKr/zJZNJTDwkSpAeBhGASwt/SyaTnsvN0aX3ewVNxrzmJYNJ+rle5HgFBC3Suq0lk0k5bx8yfLZpeCBxRX27QyXTSAhipzsdxq9A5bErGU7KSudtB48cLR/AzpqYkrEkCzgRj+bQ54ooxkvJbFJWG15jkfrxWIklg0moB0VMnxDparV/wJLB5KkTJ4R+spRiOxv/lgwnNVyr3aCfif+BeSWDSaMHlUtHrs2ogx5KgVQymORcY65wzMvNhmP+gcGSueQb1EiYEWUrcAklc8kpEgQRxDQCvgJSSsaTPneMCOtiaINlhb3GJYNJdFgviNqBfLwEOUFWyXQSiDw859VCpk85EhRT8gNI3gM9r+8FnhlggZX8DFInzYlEsk+K25Lh5GPFeuJFxs+oTxxFbkrmkrgBGB+A8NBNfQmCZ1QymPxRldxVyV2V3FXJXZXc1YeRvwFikqiELvICIAAAAABJRU5ErkJggg==","payload":"00020126580014br.gov.bcb.pix0136db59b121-dd36-4ee1-8e41-b2372b893cd15204000053039865802BR5925Joao
+        Pedro Pierre Benaion6008Brasilia62290525JOAOPEDR00000001309615ASA630472A4"}}]}'
+  recorded_at: Sun, 24 May 2026 00:30:31 GMT
+recorded_with: VCR 6.4.0

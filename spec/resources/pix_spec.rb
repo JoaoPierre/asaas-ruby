@@ -4,8 +4,8 @@ require "spec_helper"
 
 RSpec.describe Asaas::Resources::Pix do
   describe ".create_key" do
-    it "POSTs to /pix/keys and returns an AsaasObject" do
-      stub_asaas(:post, "/pix/keys", body: { "id" => "key_1", "key" => "joao@email.com", "type" => "EMAIL" })
+    it "POSTs to /pix/addressKeys and returns an AsaasObject" do
+      stub_asaas(:post, "/pix/addressKeys", body: { "id" => "key_1", "key" => "joao@email.com", "type" => "EMAIL" })
 
       result = described_class.create_key(type: "EMAIL", key: "joao@email.com")
 
@@ -15,9 +15,9 @@ RSpec.describe Asaas::Resources::Pix do
   end
 
   describe ".list_keys" do
-    it "GETs /pix/keys and returns a ListObject" do
+    it "GETs /pix/addressKeys and returns a ListObject" do
       key = { "id" => "key_1", "key" => "joao@email.com", "type" => "EMAIL" }
-      stub_asaas(:get, "/pix/keys", body: list_response([key]))
+      stub_asaas(:get, "/pix/addressKeys", body: list_response([key]))
 
       result = described_class.list_keys
 
@@ -27,8 +27,8 @@ RSpec.describe Asaas::Resources::Pix do
   end
 
   describe ".delete_key" do
-    it "DELETEs /pix/keys/:id and returns an AsaasObject" do
-      stub_asaas(:delete, "/pix/keys/key_1", body: { "deleted" => true })
+    it "DELETEs /pix/addressKeys/:id and returns an AsaasObject" do
+      stub_asaas(:delete, "/pix/addressKeys/key_1", body: { "deleted" => true })
 
       result = described_class.delete_key("key_1")
 
@@ -38,8 +38,8 @@ RSpec.describe Asaas::Resources::Pix do
   end
 
   describe ".create_qr_code" do
-    it "POSTs to /pix/qrCodes and returns an AsaasObject" do
-      stub_asaas(:post, "/pix/qrCodes", body: { "id" => "qr_1", "payload" => "00020101..." })
+    it "POSTs to /pix/qrCodes/static and returns an AsaasObject" do
+      stub_asaas(:post, "/pix/qrCodes/static", body: { "id" => "qr_1", "payload" => "00020101..." })
 
       result = described_class.create_qr_code(addressKey: "joao@email.com", value: 50.0)
 
@@ -61,9 +61,9 @@ RSpec.describe Asaas::Resources::Pix do
   end
 
   describe ".decode_qr_code" do
-    it "POSTs to /pix/transactions/decode and returns an AsaasObject" do
+    it "POSTs to /pix/qrCodes/decode and returns an AsaasObject" do
       decoded = { "addressKey" => "joao@email.com", "value" => 50.0 }
-      stub_asaas(:post, "/pix/transactions/decode", body: decoded)
+      stub_asaas(:post, "/pix/qrCodes/decode", body: decoded)
 
       result = described_class.decode_qr_code(payload: "00020101...")
 

@@ -1,0 +1,115 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://sandbox.asaas.com/api/v3/customers
+    body:
+      encoding: UTF-8
+      string: '{"name":"VCR Test Update","email":"vcr-update@test.com","cpfCnpj":"71428793860"}'
+    headers:
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      Access-Token:
+      - "<ASAAS_API_KEY>"
+      User-Agent:
+      - AsaasRuby/0.1.0
+      Idempotency-Key:
+      - 0c98c1f3-ea89-4ed0-93d8-97260510d73b
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Date:
+      - Sat, 23 May 2026 19:27:06 GMT
+      Vary:
+      - Access-Control-Request-Headers
+      - Access-Control-Request-Method
+      - Origin
+      Set-Cookie:
+      - JSESSIONID=E142083CD281427473D0CE7F3936B59DDE3ED90B20D4C7D1F70A9E54A504BE4972F973B83F486707D7EB5EEA7E7C66367678B4EF662D3903072BCDAE5C0865E8.n2;
+        Path=/; Secure; HttpOnly
+      Server:
+      - nginx
+      X-Cache:
+      - Miss from cloudfront
+      Via:
+      - 1.1 28875a720cf3446a597f0af9e5e3de14.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - GIG51-P3
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      X-Amz-Cf-Id:
+      - 0wwRdAeWsUeRcUc8sypRw8EOM0c4KqGkVKcRAOxCLJXmxmG4d3Aw_Q==
+    body:
+      encoding: UTF-8
+      string: '{"object":"customer","id":"cus_000008024479","dateCreated":"2026-05-23","name":"VCR
+        Test Update","email":"vcr-update@test.com","company":null,"phone":null,"mobilePhone":null,"address":null,"addressNumber":null,"complement":null,"province":null,"postalCode":null,"cpfCnpj":"71428793860","personType":"FISICA","deleted":false,"additionalEmails":null,"externalReference":null,"notificationDisabled":false,"observations":null,"municipalInscription":null,"stateInscription":null,"canDelete":true,"cannotBeDeletedReason":null,"canEdit":true,"cannotEditReason":null,"city":null,"cityName":null,"state":null,"country":"Brasil"}'
+  recorded_at: Sat, 23 May 2026 19:27:06 GMT
+- request:
+    method: put
+    uri: https://sandbox.asaas.com/api/v3/customers/cus_000008024479
+    body:
+      encoding: UTF-8
+      string: '{"name":"VCR Test Updated"}'
+    headers:
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      Access-Token:
+      - "<ASAAS_API_KEY>"
+      User-Agent:
+      - AsaasRuby/0.1.0
+      Idempotency-Key:
+      - f13e2e7c-6949-46b8-b0e8-77d56ff32b65
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Date:
+      - Sat, 23 May 2026 19:27:06 GMT
+      Vary:
+      - Access-Control-Request-Headers
+      - Access-Control-Request-Method
+      - Origin
+      Set-Cookie:
+      - JSESSIONID=5DB2062FC36B5D1C9D21567BB73F0499C784E17D30B042F7ED5D9CCDFE673D91B3A5F20BA1BFFF8F6FFC12F03152FF9201BFA032066F84F697F763722D405EB8.n2;
+        Path=/; Secure; HttpOnly
+      Server:
+      - nginx
+      X-Cache:
+      - Miss from cloudfront
+      Via:
+      - 1.1 31cb96eb609fe7e044ddb84ad336c356.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - GIG51-P3
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      X-Amz-Cf-Id:
+      - QvrcXHDgbVZ2uR_AGq2HnG7enDSk6UDtpeqMFYJo1Y2m-8L-IE68EQ==
+    body:
+      encoding: UTF-8
+      string: '{"object":"customer","id":"cus_000008024479","dateCreated":"2026-05-23","name":"VCR
+        Test Updated","email":"vcr-update@test.com","company":null,"phone":null,"mobilePhone":null,"address":null,"addressNumber":null,"complement":null,"province":null,"postalCode":null,"cpfCnpj":"71428793860","personType":"FISICA","deleted":false,"additionalEmails":null,"externalReference":null,"notificationDisabled":false,"observations":null,"municipalInscription":null,"stateInscription":null,"canDelete":true,"cannotBeDeletedReason":null,"canEdit":true,"cannotEditReason":null,"city":null,"cityName":null,"state":null,"country":"Brasil"}'
+  recorded_at: Sat, 23 May 2026 19:27:06 GMT
+recorded_with: VCR 6.4.0

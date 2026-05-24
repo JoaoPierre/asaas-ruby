@@ -7,8 +7,8 @@ RSpec.describe Asaas::Resources::Dunning do
   let(:dunning_attrs) { { "id" => id, "status" => "REQUESTED", "type" => "CREDIT_BUREAU" } }
 
   describe ".create" do
-    it "POSTs to /dunnings and returns an AsaasObject" do
-      stub_asaas(:post, "/dunnings", body: dunning_attrs)
+    it "POSTs to /paymentDunnings and returns an AsaasObject" do
+      stub_asaas(:post, "/paymentDunnings", body: dunning_attrs)
 
       result = described_class.create(payment: "pay_1", type: "CREDIT_BUREAU")
 
@@ -18,8 +18,8 @@ RSpec.describe Asaas::Resources::Dunning do
   end
 
   describe ".retrieve" do
-    it "GETs /dunnings/:id and returns an AsaasObject" do
-      stub_asaas(:get, "/dunnings/#{id}", body: dunning_attrs)
+    it "GETs /paymentDunnings/:id and returns an AsaasObject" do
+      stub_asaas(:get, "/paymentDunnings/#{id}", body: dunning_attrs)
 
       result = described_class.retrieve(id)
 
@@ -29,8 +29,8 @@ RSpec.describe Asaas::Resources::Dunning do
   end
 
   describe ".list" do
-    it "GETs /dunnings and returns a ListObject" do
-      stub_asaas(:get, "/dunnings", body: list_response([dunning_attrs]))
+    it "GETs /paymentDunnings and returns a ListObject" do
+      stub_asaas(:get, "/paymentDunnings", body: list_response([dunning_attrs]))
 
       result = described_class.list
 
@@ -40,8 +40,8 @@ RSpec.describe Asaas::Resources::Dunning do
   end
 
   describe ".delete" do
-    it "DELETEs /dunnings/:id (cancel)" do
-      stub_asaas(:delete, "/dunnings/#{id}", body: { "deleted" => true })
+    it "DELETEs /paymentDunnings/:id (cancel)" do
+      stub_asaas(:delete, "/paymentDunnings/#{id}", body: { "deleted" => true })
 
       result = described_class.delete(id)
 
@@ -50,8 +50,8 @@ RSpec.describe Asaas::Resources::Dunning do
   end
 
   describe ".resend_documents" do
-    it "POSTs to /dunnings/:id/documents" do
-      stub_asaas(:post, "/dunnings/#{id}/documents", body: dunning_attrs)
+    it "POSTs to /paymentDunnings/:id/documents" do
+      stub_asaas(:post, "/paymentDunnings/#{id}/documents", body: dunning_attrs)
 
       result = described_class.resend_documents(id)
 

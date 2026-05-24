@@ -1,0 +1,37 @@
+name: Refresh VCR Cassettes
+
+on:
+  schedule:
+    - cron: "0 6 * * 1" # toda segunda-feira às 6h UTC
+  workflow_dispatch:
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.4"
+          bundler-cache: true
+
+      - name: Re-record cassettes
+        env:
+          ASAAS_API_KEY: ${{ secrets.ASAAS_API_KEY_SANDBOX }}
+          VCR_RECORD_MODE: all
+        run: bundle exec rspec spec/integration/
+
+      - name: Open PR with updated cassettes
+        uses: peter-evans/create-pull-request@v7
+        with:
+          commit-message: "chore: refresh VCR cassettes"
+          title: "chore: refresh VCR cassettes"
+          body: |
+            Cassettes re-gravados automaticamente contra o sandbox do Asaas.
+
+            Verifique se houve mudanças inesperadas nos payloads antes de fazer merge.
+          branch: chore/refresh-vcr-cassettes
+          delete-branch: true
+          labels: dependencies

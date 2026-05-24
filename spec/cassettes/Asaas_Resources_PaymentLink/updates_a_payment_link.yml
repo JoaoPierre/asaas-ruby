@@ -1,0 +1,113 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://sandbox.asaas.com/api/v3/paymentLinks
+    body:
+      encoding: UTF-8
+      string: '{"name":"VCR Update Link","billingType":"UNDEFINED","chargeType":"DETACHED","value":75.0,"endDate":"2026-12-31","dueDateLimitDays":5}'
+    headers:
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      Access-Token:
+      - "<ASAAS_API_KEY>"
+      User-Agent:
+      - AsaasRuby/0.1.0
+      Idempotency-Key:
+      - 78f5111b-29ac-48b8-9fc1-80fc138a56fe
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Date:
+      - Sat, 23 May 2026 20:20:57 GMT
+      Vary:
+      - Access-Control-Request-Headers
+      - Access-Control-Request-Method
+      - Origin
+      Set-Cookie:
+      - JSESSIONID=624642D646B67F9D0EFB5CDADAF97F63B27100CDC577628F88712600815B2F3FBD3C77CFDED384012CA82E17A54541297E0B4492FB394F021110FFF1E0C63092.n1;
+        Path=/; Secure; HttpOnly
+      Server:
+      - nginx
+      X-Cache:
+      - Miss from cloudfront
+      Via:
+      - 1.1 3deb8c79b706cdf9560d6be2907a5bae.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - GIG51-P3
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      X-Amz-Cf-Id:
+      - 8aj76_TWFuVDukRPFRx4KRRDtwNbEbK196yax1A8hYYtJWABlANlpQ==
+    body:
+      encoding: UTF-8
+      string: '{"id":"8lhfbnrvnty9g3q3","name":"VCR Update Link","value":75.0,"active":true,"chargeType":"DETACHED","url":"https://sandbox.asaas.com/c/8lhfbnrvnty9g3q3","billingType":"UNDEFINED","subscriptionCycle":null,"description":null,"endDate":"2026-12-31","deleted":false,"viewCount":0,"maxInstallmentCount":1,"dueDateLimitDays":5,"notificationEnabled":true,"isAddressRequired":null,"externalReference":null}'
+  recorded_at: Sat, 23 May 2026 20:20:57 GMT
+- request:
+    method: put
+    uri: https://sandbox.asaas.com/api/v3/paymentLinks/8lhfbnrvnty9g3q3
+    body:
+      encoding: UTF-8
+      string: '{"name":"VCR Updated Link"}'
+    headers:
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      Access-Token:
+      - "<ASAAS_API_KEY>"
+      User-Agent:
+      - AsaasRuby/0.1.0
+      Idempotency-Key:
+      - c21a2d1b-c624-41d9-9dec-8ee41d764880
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Date:
+      - Sat, 23 May 2026 20:20:57 GMT
+      Vary:
+      - Access-Control-Request-Headers
+      - Access-Control-Request-Method
+      - Origin
+      Set-Cookie:
+      - JSESSIONID=CBA425491786F890DF2BBDB5D6D860E5759288133F93D05EBC1F5EF85300B75D5443CF4670702D101C6F637E916D9A9DB737FE1E6BA696F380CD643861A7D912.n2;
+        Path=/; Secure; HttpOnly
+      Server:
+      - nginx
+      X-Cache:
+      - Miss from cloudfront
+      Via:
+      - 1.1 31a27e29d6b5b982fa8d2098c1663fea.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - GIG51-P3
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      X-Amz-Cf-Id:
+      - C69yBSY7nzStPReHkxh0RbXRdUyej0LasHw8_jb7SbkHXEE4fdkR8Q==
+    body:
+      encoding: UTF-8
+      string: '{"id":"8lhfbnrvnty9g3q3","name":"VCR Updated Link","value":75.00,"active":true,"chargeType":"DETACHED","url":"https://sandbox.asaas.com/c/8lhfbnrvnty9g3q3","billingType":"UNDEFINED","subscriptionCycle":null,"description":null,"endDate":"2026-12-31","deleted":false,"viewCount":0,"maxInstallmentCount":1,"dueDateLimitDays":5,"notificationEnabled":true,"isAddressRequired":null,"externalReference":null}'
+  recorded_at: Sat, 23 May 2026 20:20:57 GMT
+recorded_with: VCR 6.4.0

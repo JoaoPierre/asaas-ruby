@@ -1,0 +1,58 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://sandbox.asaas.com/api/v3/sandbox/myAccount/approve
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      Access-Token:
+      - "<ASAAS_API_KEY>"
+      User-Agent:
+      - AsaasRuby/0.1.0
+      Idempotency-Key:
+      - 4c0505f1-c2a6-495c-abdf-473c3b90c8c9
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Date:
+      - Sat, 23 May 2026 21:19:45 GMT
+      Vary:
+      - Access-Control-Request-Headers
+      - Access-Control-Request-Method
+      - Origin
+      Set-Cookie:
+      - JSESSIONID=6972E69E636A69B3DD703C47D84E8A8859C4FF6FA35B6390734E42264549ABD1D1886232CE068A62FE8554384CD348A7D9F1B450EEF7DB4FA83C920A89D8CB4A.n2;
+        Path=/; Secure; HttpOnly
+      Server:
+      - nginx
+      X-Cache:
+      - Miss from cloudfront
+      Via:
+      - 1.1 bd7b916b703bda42f749ae299e975cf4.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - GIG51-P3
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      X-Amz-Cf-Id:
+      - HHrRM_ExOZcRCVxd7zWYifhKUY3fj20aT_EfaEXKuMqQh-b7oc-rbg==
+    body:
+      encoding: UTF-8
+      string: '{"id":"ff397d99-8c1a-4b2c-b78e-1130d0c0bf98","commercialInfo":"APPROVED","bankAccountInfo":"APPROVED","documentation":"APPROVED","general":"APPROVED"}'
+  recorded_at: Sat, 23 May 2026 21:19:45 GMT
+recorded_with: VCR 6.4.0

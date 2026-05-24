@@ -1,0 +1,53 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://sandbox.asaas.com/api/v3/subscriptions?limit=5
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      Access-Token:
+      - "<ASAAS_API_KEY>"
+      User-Agent:
+      - AsaasRuby/0.1.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Date:
+      - Sat, 23 May 2026 20:18:08 GMT
+      Server:
+      - nginx
+      Vary:
+      - Access-Control-Request-Headers
+      - Access-Control-Request-Method
+      - Origin
+      X-Cache:
+      - Miss from cloudfront
+      Via:
+      - 1.1 31a27e29d6b5b982fa8d2098c1663fea.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - GIG51-P3
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      X-Amz-Cf-Id:
+      - Z4xnRQEH3p3JXGH3aeN0W9oR82u-FyatmnT0KfVAo0ZnrR18Oo48vg==
+    body:
+      encoding: UTF-8
+      string: '{"object":"list","hasMore":false,"totalCount":2,"limit":5,"offset":0,"data":[{"object":"subscription","id":"sub_g3hy6nnvcwgl1a9q","dateCreated":"2026-05-23","customer":"cus_000008024677","paymentLink":null,"value":29.9,"nextDueDate":"2027-01-31","cycle":"MONTHLY","description":null,"billingType":"BOLETO","deleted":false,"status":"ACTIVE","externalReference":null,"checkoutSession":null,"sendPaymentByPostalService":false,"fine":{"value":0.00,"type":"FIXED"},"interest":{"value":0.00,"type":"PERCENTAGE"},"split":null},{"object":"subscription","id":"sub_zr1rhhsamq3xl49g","dateCreated":"2026-05-23","customer":"cus_000008024676","paymentLink":null,"value":49.9,"nextDueDate":"2027-01-31","cycle":"MONTHLY","description":null,"billingType":"BOLETO","deleted":false,"status":"ACTIVE","externalReference":null,"checkoutSession":null,"sendPaymentByPostalService":false,"fine":{"value":0.00,"type":"FIXED"},"interest":{"value":0.00,"type":"PERCENTAGE"},"split":null}]}'
+  recorded_at: Sat, 23 May 2026 20:18:08 GMT
+recorded_with: VCR 6.4.0

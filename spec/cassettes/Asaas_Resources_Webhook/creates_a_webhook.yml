@@ -1,0 +1,59 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://sandbox.asaas.com/api/v3/webhooks
+    body:
+      encoding: UTF-8
+      string: '{"url":"https://vcr-test.example.com/webhook","email":"vcr@example.com","name":"VCR
+        Test Webhook","sendType":"SEQUENTIALLY","enabled":true,"interrupted":false,"apiVersion":3,"authToken":"vcr-test-webhook-authtoken-secure-1234","events":["PAYMENT_RECEIVED","PAYMENT_OVERDUE"]}'
+    headers:
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      Access-Token:
+      - "<ASAAS_API_KEY>"
+      User-Agent:
+      - AsaasRuby/0.1.0
+      Idempotency-Key:
+      - 9528ccc6-ce60-467a-93b0-386c2dbb4821
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Date:
+      - Sat, 23 May 2026 20:38:52 GMT
+      Vary:
+      - Access-Control-Request-Headers
+      - Access-Control-Request-Method
+      - Origin
+      Set-Cookie:
+      - JSESSIONID=04DB9808A04BE5A5D23CA12EF7DA125653FC375A115B2260EB7F24D9F37B738D707BE21B89A90346A292BC651EE0C753907B2FB9EFEE4DAFE11BD19FEBD174EB.n1;
+        Path=/; Secure; HttpOnly
+      Server:
+      - nginx
+      X-Cache:
+      - Miss from cloudfront
+      Via:
+      - 1.1 52ced85754e0c118589238aefdc4be6e.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - GIG51-P3
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      X-Amz-Cf-Id:
+      - Db7clsMR1lkOvElhbcbIQbRHFepezamPCKgObQhEtoq437d8sqdRpw==
+    body:
+      encoding: UTF-8
+      string: '{"id":"a9861c4a-176e-4996-9cc9-e8d4940f56dc","name":"VCR Test Webhook","url":"https://vcr-test.example.com/webhook","email":"vcr@example.com","enabled":true,"interrupted":false,"apiVersion":3,"hasAuthToken":true,"sendType":"SEQUENTIALLY","penalizedRequestsCount":0,"events":["PAYMENT_OVERDUE","PAYMENT_RECEIVED"],"authToken":"vcr-test-webhook-authtoken-secure-1234"}'
+  recorded_at: Sat, 23 May 2026 20:38:52 GMT
+recorded_with: VCR 6.4.0
