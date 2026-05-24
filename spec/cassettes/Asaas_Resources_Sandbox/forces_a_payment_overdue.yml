@@ -1,0 +1,175 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://sandbox.asaas.com/api/v3/customers
+    body:
+      encoding: UTF-8
+      string: '{"name":"Sandbox Overdue Customer","email":"sandbox-overdue@test.com","cpfCnpj":"30621143049"}'
+    headers:
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      Access-Token:
+      - "<ASAAS_API_KEY>"
+      User-Agent:
+      - AsaasRuby/0.1.0
+      Idempotency-Key:
+      - 43c7f29e-7d52-4742-a4f4-93159180c2b4
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Date:
+      - Sat, 23 May 2026 21:19:47 GMT
+      Vary:
+      - Access-Control-Request-Headers
+      - Access-Control-Request-Method
+      - Origin
+      Set-Cookie:
+      - JSESSIONID=035051EE7B1DAD1265B367C7D82BD33432C9DDBF7CED47F25E975A179DC5C61F5A60761A36943C578D2DBD7A4E56BF7C347032A260B3989A613A10CC5F7B4D83.n2;
+        Path=/; Secure; HttpOnly
+      Server:
+      - nginx
+      X-Cache:
+      - Miss from cloudfront
+      Via:
+      - 1.1 f523332a97eb0a0810e8f4e2debfe1de.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - GIG51-P3
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      X-Amz-Cf-Id:
+      - 9KOdQueKbzHbnJPC4zlXJqDUDPvaDIhRUdM9vR2LhLhzVu2m3Cbjtg==
+    body:
+      encoding: UTF-8
+      string: '{"object":"customer","id":"cus_000008024857","dateCreated":"2026-05-23","name":"Sandbox
+        Overdue Customer","email":"sandbox-overdue@test.com","company":null,"phone":null,"mobilePhone":null,"address":null,"addressNumber":null,"complement":null,"province":null,"postalCode":null,"cpfCnpj":"30621143049","personType":"FISICA","deleted":false,"additionalEmails":null,"externalReference":null,"notificationDisabled":false,"observations":null,"municipalInscription":null,"stateInscription":null,"canDelete":true,"cannotBeDeletedReason":null,"canEdit":true,"cannotEditReason":null,"city":null,"cityName":null,"state":null,"country":"Brasil"}'
+  recorded_at: Sat, 23 May 2026 21:19:47 GMT
+- request:
+    method: post
+    uri: https://sandbox.asaas.com/api/v3/payments
+    body:
+      encoding: UTF-8
+      string: '{"customer":"cus_000008024857","billingType":"BOLETO","value":10.0,"dueDate":"2026-12-31"}'
+    headers:
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      Access-Token:
+      - "<ASAAS_API_KEY>"
+      User-Agent:
+      - AsaasRuby/0.1.0
+      Idempotency-Key:
+      - 6acc9ff0-2650-4a51-9412-635f37c56816
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Date:
+      - Sat, 23 May 2026 21:19:48 GMT
+      Ratelimit-Reset:
+      - '8'
+      Set-Cookie:
+      - JSESSIONID=F7716E0CD42DCA3F837AB2715D73D8275D64549F10B96D14CFF88B4C5F7CD952866205F2000BA2F40C22347E0D6A0ABA62CF3FA431C763A96F2E2D1C792896FA.n2;
+        Path=/; Secure; HttpOnly
+      Server:
+      - nginx
+      Vary:
+      - Access-Control-Request-Headers
+      - Access-Control-Request-Method
+      - Origin
+      Ratelimit-Limit:
+      - '100'
+      Ratelimit-Remaining:
+      - '98'
+      X-Cache:
+      - Miss from cloudfront
+      Via:
+      - 1.1 9b4b6b623660f15e619b0428e8407ea2.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - GIG51-P3
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      X-Amz-Cf-Id:
+      - 97FZztCB58v1z2dswuBdAWSJm4ekGqA_RDDmUvVdDWb7CQNFCzd6VQ==
+    body:
+      encoding: UTF-8
+      string: '{"object":"payment","id":"pay_nxeg7tg1fw4q52ci","dateCreated":"2026-05-23","customer":"cus_000008024857","checkoutSession":null,"paymentLink":null,"value":10.0,"netValue":9.01,"originalValue":null,"interestValue":null,"description":null,"billingType":"BOLETO","canBePaidAfterDueDate":true,"pixTransaction":null,"status":"PENDING","dueDate":"2026-12-31","originalDueDate":"2026-12-31","paymentDate":null,"clientPaymentDate":null,"installmentNumber":null,"invoiceUrl":"https://sandbox.asaas.com/i/nxeg7tg1fw4q52ci","invoiceNumber":"14929331","externalReference":null,"deleted":false,"anticipated":false,"anticipable":false,"creditDate":null,"estimatedCreditDate":null,"transactionReceiptUrl":null,"nossoNumero":"12456867","bankSlipUrl":"https://sandbox.asaas.com/b/pdf/nxeg7tg1fw4q52ci","lastInvoiceViewedDate":null,"lastBankSlipViewedDate":null,"discount":{"value":0.00,"limitDate":null,"dueDateLimitDays":0,"type":"FIXED"},"fine":{"value":0.00,"type":"FIXED"},"interest":{"value":0.00,"type":"PERCENTAGE"},"postalService":false,"escrow":null,"refunds":null}'
+  recorded_at: Sat, 23 May 2026 21:19:48 GMT
+- request:
+    method: post
+    uri: https://sandbox.asaas.com/api/v3/sandbox/payment/pay_nxeg7tg1fw4q52ci/overdue
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      Access-Token:
+      - "<ASAAS_API_KEY>"
+      User-Agent:
+      - AsaasRuby/0.1.0
+      Idempotency-Key:
+      - 2ca5ea56-17eb-4fb6-a48b-6f6be8f18fcc
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Date:
+      - Sat, 23 May 2026 21:19:48 GMT
+      Vary:
+      - Access-Control-Request-Headers
+      - Access-Control-Request-Method
+      - Origin
+      Set-Cookie:
+      - JSESSIONID=AB0BFE6D3812D9FA280D803420070C17CDFB2735A9C079FA18A73CEDDA372D5D70726C2084ADBA01C72E56419F157FD3C3D74234AE8DCF6BEB0FF3DD9E4D1403.n1;
+        Path=/; Secure; HttpOnly
+      Server:
+      - nginx
+      X-Cache:
+      - Miss from cloudfront
+      Via:
+      - 1.1 e33021a982783e51e0386debf6f384de.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - GIG51-P3
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      X-Amz-Cf-Id:
+      - 0Hr40o5NbR5cIsF_zlIi39l6ipei1PwGGun6L3y05WGobA9qYc0f6w==
+    body:
+      encoding: UTF-8
+      string: '{"object":"payment","id":"pay_nxeg7tg1fw4q52ci","dateCreated":"2026-05-23","customer":"cus_000008024857","checkoutSession":null,"paymentLink":null,"value":10.00,"netValue":9.01,"originalValue":null,"interestValue":null,"description":null,"billingType":"BOLETO","canBePaidAfterDueDate":true,"pixTransaction":null,"status":"OVERDUE","dueDate":"2026-05-22","originalDueDate":"2026-12-31","paymentDate":null,"clientPaymentDate":null,"installmentNumber":null,"invoiceUrl":"https://sandbox.asaas.com/i/nxeg7tg1fw4q52ci","invoiceNumber":"14929331","externalReference":null,"deleted":false,"anticipated":false,"anticipable":false,"creditDate":null,"estimatedCreditDate":null,"transactionReceiptUrl":null,"nossoNumero":"12456867","bankSlipUrl":"https://sandbox.asaas.com/b/pdf/nxeg7tg1fw4q52ci","lastInvoiceViewedDate":null,"lastBankSlipViewedDate":null,"discount":{"value":0.00,"limitDate":null,"dueDateLimitDays":0,"type":"FIXED"},"fine":{"value":0.00,"type":"FIXED"},"interest":{"value":0.00,"type":"PERCENTAGE"},"postalService":false,"escrow":null,"refunds":null}'
+  recorded_at: Sat, 23 May 2026 21:19:49 GMT
+recorded_with: VCR 6.4.0

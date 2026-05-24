@@ -1,0 +1,120 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://sandbox.asaas.com/api/v3/customers
+    body:
+      encoding: UTF-8
+      string: '{"name":"VCR Payment Customer","email":"vcr-pay-create@test.com","cpfCnpj":"98765432100"}'
+    headers:
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      Access-Token:
+      - "<ASAAS_API_KEY>"
+      User-Agent:
+      - AsaasRuby/0.1.0
+      Idempotency-Key:
+      - bef8c76e-f55c-40e2-802a-159b525ce3c7
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Date:
+      - Sat, 23 May 2026 19:29:10 GMT
+      Vary:
+      - Access-Control-Request-Headers
+      - Access-Control-Request-Method
+      - Origin
+      Set-Cookie:
+      - JSESSIONID=D0563FC804906D735E3287507126E3718AF5F47AA909BD67CE6D4C6320B743FDBBB89E9C92F733F472F4655725F3360600D7294160C0C92C7F4D68484DC5403F.n1;
+        Path=/; Secure; HttpOnly
+      Server:
+      - nginx
+      X-Cache:
+      - Miss from cloudfront
+      Via:
+      - 1.1 31cb96eb609fe7e044ddb84ad336c356.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - GIG51-P3
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      X-Amz-Cf-Id:
+      - u7qcOLs7_gSH_-zQEi2OkcsQDbxunGzhTJtS0mUkKQLiYTNlsIynYA==
+    body:
+      encoding: UTF-8
+      string: '{"object":"customer","id":"cus_000008024488","dateCreated":"2026-05-23","name":"VCR
+        Payment Customer","email":"vcr-pay-create@test.com","company":null,"phone":null,"mobilePhone":null,"address":null,"addressNumber":null,"complement":null,"province":null,"postalCode":null,"cpfCnpj":"98765432100","personType":"FISICA","deleted":false,"additionalEmails":null,"externalReference":null,"notificationDisabled":false,"observations":null,"municipalInscription":null,"stateInscription":null,"canDelete":true,"cannotBeDeletedReason":null,"canEdit":true,"cannotEditReason":null,"city":null,"cityName":null,"state":null,"country":"Brasil"}'
+  recorded_at: Sat, 23 May 2026 19:29:10 GMT
+- request:
+    method: post
+    uri: https://sandbox.asaas.com/api/v3/payments
+    body:
+      encoding: UTF-8
+      string: '{"customer":"cus_000008024488","billingType":"BOLETO","value":100.0,"dueDate":"2026-12-31"}'
+    headers:
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      Access-Token:
+      - "<ASAAS_API_KEY>"
+      User-Agent:
+      - AsaasRuby/0.1.0
+      Idempotency-Key:
+      - 594027c8-97f7-4b2c-b2a5-2f42fe92241c
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Date:
+      - Sat, 23 May 2026 19:29:10 GMT
+      Ratelimit-Reset:
+      - '9'
+      Set-Cookie:
+      - JSESSIONID=7A2AF02A7F0DD63AFE0C3E1AE639B2E71D6B7A475572609199DEAB99D353008A95E46079B70C0E6597AB691F9B94847D6E24D0AA202BE20C78D1E9ECDAAD1642.n2;
+        Path=/; Secure; HttpOnly
+      Server:
+      - nginx
+      Vary:
+      - Access-Control-Request-Headers
+      - Access-Control-Request-Method
+      - Origin
+      Ratelimit-Limit:
+      - '100'
+      Ratelimit-Remaining:
+      - '99'
+      X-Cache:
+      - Miss from cloudfront
+      Via:
+      - 1.1 cee631d073f7ec53b796b7878629db3c.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - GIG51-P3
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      X-Amz-Cf-Id:
+      - wRQnSInRXfddy9wTJpN71hOzUQivGf3HrhN84ewCmPFduw-7xthnOg==
+    body:
+      encoding: UTF-8
+      string: '{"object":"payment","id":"pay_or43devzj3xxext9","dateCreated":"2026-05-23","customer":"cus_000008024488","checkoutSession":null,"paymentLink":null,"value":100.0,"netValue":99.01,"originalValue":null,"interestValue":null,"description":null,"billingType":"BOLETO","canBePaidAfterDueDate":true,"pixTransaction":null,"status":"PENDING","dueDate":"2026-12-31","originalDueDate":"2026-12-31","paymentDate":null,"clientPaymentDate":null,"installmentNumber":null,"invoiceUrl":"https://sandbox.asaas.com/i/or43devzj3xxext9","invoiceNumber":"14928546","externalReference":null,"deleted":false,"anticipated":false,"anticipable":false,"creditDate":null,"estimatedCreditDate":null,"transactionReceiptUrl":null,"nossoNumero":"12456498","bankSlipUrl":"https://sandbox.asaas.com/b/pdf/or43devzj3xxext9","lastInvoiceViewedDate":null,"lastBankSlipViewedDate":null,"discount":{"value":0.00,"limitDate":null,"dueDateLimitDays":0,"type":"FIXED"},"fine":{"value":0.00,"type":"FIXED"},"interest":{"value":0.00,"type":"PERCENTAGE"},"postalService":false,"escrow":null,"refunds":null}'
+  recorded_at: Sat, 23 May 2026 19:29:11 GMT
+recorded_with: VCR 6.4.0

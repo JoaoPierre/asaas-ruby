@@ -1,0 +1,167 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://sandbox.asaas.com/api/v3/customers
+    body:
+      encoding: UTF-8
+      string: '{"name":"VCR Subscription Delete","email":"vcr-sub-delete@test.com","cpfCnpj":"09750971728"}'
+    headers:
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      Access-Token:
+      - "<ASAAS_API_KEY>"
+      User-Agent:
+      - AsaasRuby/0.1.0
+      Idempotency-Key:
+      - 4452a9bc-7dd1-485e-8802-cf038bc382e3
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Date:
+      - Sat, 23 May 2026 20:18:10 GMT
+      Vary:
+      - Access-Control-Request-Headers
+      - Access-Control-Request-Method
+      - Origin
+      Set-Cookie:
+      - JSESSIONID=FDC0E4B5FDF2813101A7D6689B6387013B069D32266969E2410B95C3FC05652812C1DF57B125E16A040D440C062322F06CEA1908CFA7B33B8240BFC5171733CA.n1;
+        Path=/; Secure; HttpOnly
+      Server:
+      - nginx
+      X-Cache:
+      - Miss from cloudfront
+      Via:
+      - 1.1 9b4b6b623660f15e619b0428e8407ea2.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - GIG51-P3
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      X-Amz-Cf-Id:
+      - DNgJrk9hv2SpWU_t0ehgbSZsmpbGzFcBtPQXvoC4oq-0bmVqgMrkKA==
+    body:
+      encoding: UTF-8
+      string: '{"object":"customer","id":"cus_000008024679","dateCreated":"2026-05-23","name":"VCR
+        Subscription Delete","email":"vcr-sub-delete@test.com","company":null,"phone":null,"mobilePhone":null,"address":null,"addressNumber":null,"complement":null,"province":null,"postalCode":null,"cpfCnpj":"09750971728","personType":"FISICA","deleted":false,"additionalEmails":null,"externalReference":null,"notificationDisabled":false,"observations":null,"municipalInscription":null,"stateInscription":null,"canDelete":true,"cannotBeDeletedReason":null,"canEdit":true,"cannotEditReason":null,"city":null,"cityName":null,"state":null,"country":"Brasil"}'
+  recorded_at: Sat, 23 May 2026 20:18:10 GMT
+- request:
+    method: post
+    uri: https://sandbox.asaas.com/api/v3/subscriptions
+    body:
+      encoding: UTF-8
+      string: '{"customer":"cus_000008024679","billingType":"BOLETO","value":9.9,"nextDueDate":"2026-12-31","cycle":"MONTHLY"}'
+    headers:
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      Access-Token:
+      - "<ASAAS_API_KEY>"
+      User-Agent:
+      - AsaasRuby/0.1.0
+      Idempotency-Key:
+      - 28d7e2e0-b86c-40fb-ab2d-a7938a9b3331
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Date:
+      - Sat, 23 May 2026 20:18:10 GMT
+      Vary:
+      - Access-Control-Request-Headers
+      - Access-Control-Request-Method
+      - Origin
+      Set-Cookie:
+      - JSESSIONID=A62E2F908B581F76F8BEF538B9CD619D43A6C4E66377894FEFBCBA9B21E379CF92DE0B7E72F596CAA3188C68221281A50610A1A2256F090C23927AA087BF4A1A.n2;
+        Path=/; Secure; HttpOnly
+      Server:
+      - nginx
+      X-Cache:
+      - Miss from cloudfront
+      Via:
+      - 1.1 335a42356a688eb684e0a3a3c680cb3e.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - GIG51-P3
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      X-Amz-Cf-Id:
+      - XHzgNkM7x9rFp_4DEwbEFuhp-HrhgotHduExFlIuvkOfUXnE3At1nA==
+    body:
+      encoding: UTF-8
+      string: '{"object":"subscription","id":"sub_vics88lms8la6syy","dateCreated":"2026-05-23","customer":"cus_000008024679","paymentLink":null,"value":9.90,"nextDueDate":"2027-01-31","cycle":"MONTHLY","description":null,"billingType":"BOLETO","deleted":false,"status":"ACTIVE","externalReference":null,"checkoutSession":null,"sendPaymentByPostalService":false,"fine":{"value":0,"type":"FIXED"},"interest":{"value":0,"type":"PERCENTAGE"},"split":null}'
+  recorded_at: Sat, 23 May 2026 20:18:10 GMT
+- request:
+    method: delete
+    uri: https://sandbox.asaas.com/api/v3/subscriptions/sub_vics88lms8la6syy
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      Access-Token:
+      - "<ASAAS_API_KEY>"
+      User-Agent:
+      - AsaasRuby/0.1.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Date:
+      - Sat, 23 May 2026 20:18:11 GMT
+      Vary:
+      - Access-Control-Request-Headers
+      - Access-Control-Request-Method
+      - Origin
+      Set-Cookie:
+      - JSESSIONID=6BA706FCB8D9D0A4B2804CD9B8EC1EDFFA8B05AE70E616128FCD662D053A193EF94588468CC6AD3F0EFD85C9732743F38F8DCBDE638316C1CA8D0E7B76FBE768.n1;
+        Path=/; Secure; HttpOnly
+      Server:
+      - nginx
+      X-Cache:
+      - Miss from cloudfront
+      Via:
+      - 1.1 bd7b916b703bda42f749ae299e975cf4.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - GIG51-P3
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      X-Amz-Cf-Id:
+      - yy_AmZCSrttBgBtgjBxp_e9O5grmXPh_Nf7oTW6UyAL_uXFle-qOPQ==
+    body:
+      encoding: UTF-8
+      string: '{"deleted":true,"id":"sub_vics88lms8la6syy"}'
+  recorded_at: Sat, 23 May 2026 20:18:11 GMT
+recorded_with: VCR 6.4.0

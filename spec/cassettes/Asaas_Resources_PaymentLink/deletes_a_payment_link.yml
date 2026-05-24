@@ -1,0 +1,111 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://sandbox.asaas.com/api/v3/paymentLinks
+    body:
+      encoding: UTF-8
+      string: '{"name":"VCR Delete Link","billingType":"UNDEFINED","chargeType":"DETACHED","value":10.0,"endDate":"2026-12-31","dueDateLimitDays":5}'
+    headers:
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      Access-Token:
+      - "<ASAAS_API_KEY>"
+      User-Agent:
+      - AsaasRuby/0.1.0
+      Idempotency-Key:
+      - 569b51a9-0c66-495e-a788-adafc5784a32
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Date:
+      - Sat, 23 May 2026 20:20:57 GMT
+      Vary:
+      - Access-Control-Request-Headers
+      - Access-Control-Request-Method
+      - Origin
+      Set-Cookie:
+      - JSESSIONID=E6635FA3606457ACB03CEE147CCF678C6F195DC38650DD3FBE8FCB1BDC41E7AEAF1FECCBA429E46E09E087494E42AACEF7D00FBCB34009DC8B790C739F38C850.n1;
+        Path=/; Secure; HttpOnly
+      Server:
+      - nginx
+      X-Cache:
+      - Miss from cloudfront
+      Via:
+      - 1.1 f523332a97eb0a0810e8f4e2debfe1de.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - GIG51-P3
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      X-Amz-Cf-Id:
+      - tvuJu3x4zKENugldzV1KqlYKaFxpvGKGh1Ry5uhoH9eoak6tU4o8wQ==
+    body:
+      encoding: UTF-8
+      string: '{"id":"trop7wa05zil3vtm","name":"VCR Delete Link","value":10.0,"active":true,"chargeType":"DETACHED","url":"https://sandbox.asaas.com/c/trop7wa05zil3vtm","billingType":"UNDEFINED","subscriptionCycle":null,"description":null,"endDate":"2026-12-31","deleted":false,"viewCount":0,"maxInstallmentCount":1,"dueDateLimitDays":5,"notificationEnabled":true,"isAddressRequired":null,"externalReference":null}'
+  recorded_at: Sat, 23 May 2026 20:20:57 GMT
+- request:
+    method: delete
+    uri: https://sandbox.asaas.com/api/v3/paymentLinks/trop7wa05zil3vtm
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      Access-Token:
+      - "<ASAAS_API_KEY>"
+      User-Agent:
+      - AsaasRuby/0.1.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Date:
+      - Sat, 23 May 2026 20:20:57 GMT
+      Vary:
+      - Access-Control-Request-Headers
+      - Access-Control-Request-Method
+      - Origin
+      Set-Cookie:
+      - JSESSIONID=BC637FA675C496DE734C5EC141C9400C8C69836040CF51D1565C452275A2C6A800943365815CC532C046AC4A26D63D27F3A363A6E04016616D67AD3464479452.n2;
+        Path=/; Secure; HttpOnly
+      Server:
+      - nginx
+      X-Cache:
+      - Miss from cloudfront
+      Via:
+      - 1.1 55386deb86c59f69358ba08b0e38ed30.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - GIG51-P3
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      X-Amz-Cf-Id:
+      - 2XA-1tHt86vNhZf7gVPk_EmhQrRBaV2CQd1nryja_fsqfMTP-ILlxg==
+    body:
+      encoding: UTF-8
+      string: '{"deleted":true,"id":"trop7wa05zil3vtm"}'
+  recorded_at: Sat, 23 May 2026 20:20:58 GMT
+recorded_with: VCR 6.4.0

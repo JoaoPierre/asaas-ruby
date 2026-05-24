@@ -1,0 +1,56 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://sandbox.asaas.com/api/v3/webhooks
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      Access-Token:
+      - "<ASAAS_API_KEY>"
+      User-Agent:
+      - AsaasRuby/0.1.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Date:
+      - Sat, 23 May 2026 20:38:54 GMT
+      Server:
+      - nginx
+      Vary:
+      - Access-Control-Request-Headers
+      - Access-Control-Request-Method
+      - Origin
+      X-Cache:
+      - Miss from cloudfront
+      Via:
+      - 1.1 d404c3bebc750eb51899db319be58a7e.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - GIG51-P3
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      X-Amz-Cf-Id:
+      - l-LS6wY-ufn4QsFbuv3X08hCUF47WtbVBCcBH47fdfYGvWkl379Qxw==
+    body:
+      encoding: UTF-8
+      string: '{"object":"list","hasMore":false,"totalCount":3,"limit":10,"offset":0,"data":[{"id":"794fec4b-e72a-48ca-8790-a791fbcc8aac","name":"VCR
+        Test Webhook","url":"https://vcr-updated.example.com/webhook","email":"vcr@example.com","enabled":true,"interrupted":false,"apiVersion":3,"hasAuthToken":true,"sendType":"SEQUENTIALLY","penalizedRequestsCount":0,"events":["PAYMENT_OVERDUE","PAYMENT_RECEIVED"]},{"id":"04abf8f3-6545-4a3e-91a1-91532cee47b7","name":"VCR
+        Test Webhook","url":"https://vcr-retrieve.example.com/webhook","email":"vcr@example.com","enabled":true,"interrupted":false,"apiVersion":3,"hasAuthToken":true,"sendType":"SEQUENTIALLY","penalizedRequestsCount":0,"events":["PAYMENT_OVERDUE","PAYMENT_RECEIVED"]},{"id":"a9861c4a-176e-4996-9cc9-e8d4940f56dc","name":"VCR
+        Test Webhook","url":"https://vcr-test.example.com/webhook","email":"vcr@example.com","enabled":true,"interrupted":false,"apiVersion":3,"hasAuthToken":true,"sendType":"SEQUENTIALLY","penalizedRequestsCount":0,"events":["PAYMENT_OVERDUE","PAYMENT_RECEIVED"]}]}'
+  recorded_at: Sat, 23 May 2026 20:38:54 GMT
+recorded_with: VCR 6.4.0

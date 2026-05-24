@@ -1,0 +1,58 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://sandbox.asaas.com/api/v3/paymentLinks
+    body:
+      encoding: UTF-8
+      string: '{"name":"VCR Test Link","billingType":"UNDEFINED","chargeType":"DETACHED","value":75.0,"endDate":"2026-12-31","dueDateLimitDays":5}'
+    headers:
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      Access-Token:
+      - "<ASAAS_API_KEY>"
+      User-Agent:
+      - AsaasRuby/0.1.0
+      Idempotency-Key:
+      - c68fbfb0-9f28-493e-83c4-e54b80bb319c
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Date:
+      - Sat, 23 May 2026 20:20:56 GMT
+      Vary:
+      - Access-Control-Request-Headers
+      - Access-Control-Request-Method
+      - Origin
+      Set-Cookie:
+      - JSESSIONID=BD860835C418697FFC80FFCFCD681A859B4E3F440D080B4B3C2BC36E7275A470C2EF8620552C689A0DD6358767FEC4954E77E0A9921DA0E5B1D3D38E9B4C4906.n1;
+        Path=/; Secure; HttpOnly
+      Server:
+      - nginx
+      X-Cache:
+      - Miss from cloudfront
+      Via:
+      - 1.1 bd7b916b703bda42f749ae299e975cf4.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - GIG51-P3
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      X-Amz-Cf-Id:
+      - y5USUCpwpjc_-cVmBIaSZiWKR0hRrLyzUg09Zz36PXaOJNZv3XmTQg==
+    body:
+      encoding: UTF-8
+      string: '{"id":"sake3y8zw6h24l5w","name":"VCR Test Link","value":75.0,"active":true,"chargeType":"DETACHED","url":"https://sandbox.asaas.com/c/sake3y8zw6h24l5w","billingType":"UNDEFINED","subscriptionCycle":null,"description":null,"endDate":"2026-12-31","deleted":false,"viewCount":0,"maxInstallmentCount":1,"dueDateLimitDays":5,"notificationEnabled":true,"isAddressRequired":null,"externalReference":null}'
+  recorded_at: Sat, 23 May 2026 20:20:56 GMT
+recorded_with: VCR 6.4.0

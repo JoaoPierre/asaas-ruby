@@ -1,0 +1,108 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://sandbox.asaas.com/api/v3/paymentLinks
+    body:
+      encoding: UTF-8
+      string: '{"name":"VCR Retrieve Link","billingType":"UNDEFINED","chargeType":"DETACHED","value":75.0,"endDate":"2026-12-31","dueDateLimitDays":5}'
+    headers:
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      Access-Token:
+      - "<ASAAS_API_KEY>"
+      User-Agent:
+      - AsaasRuby/0.1.0
+      Idempotency-Key:
+      - a9631644-556f-4929-ba66-f6b494dd56db
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Date:
+      - Sat, 23 May 2026 20:20:56 GMT
+      Vary:
+      - Access-Control-Request-Headers
+      - Access-Control-Request-Method
+      - Origin
+      Set-Cookie:
+      - JSESSIONID=67AE46A484C5D6A93E507D3049C92313BE8484269DE600676F503F1709201156F001707139928FFA5A138C502C78C8CA5A6377B4A71BC968BAA9F351D318B33D.n2;
+        Path=/; Secure; HttpOnly
+      Server:
+      - nginx
+      X-Cache:
+      - Miss from cloudfront
+      Via:
+      - 1.1 f17d84cbbb615b6ec496ecd900a5898e.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - GIG51-P3
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      X-Amz-Cf-Id:
+      - dIFopynbJgIRjaRXAU6DMizUquWlyEpofCzxHDLzCu44hiz04QM9lw==
+    body:
+      encoding: UTF-8
+      string: '{"id":"wqq2duqpgybzbziz","name":"VCR Retrieve Link","value":75.0,"active":true,"chargeType":"DETACHED","url":"https://sandbox.asaas.com/c/wqq2duqpgybzbziz","billingType":"UNDEFINED","subscriptionCycle":null,"description":null,"endDate":"2026-12-31","deleted":false,"viewCount":0,"maxInstallmentCount":1,"dueDateLimitDays":5,"notificationEnabled":true,"isAddressRequired":null,"externalReference":null}'
+  recorded_at: Sat, 23 May 2026 20:20:56 GMT
+- request:
+    method: get
+    uri: https://sandbox.asaas.com/api/v3/paymentLinks/wqq2duqpgybzbziz
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      Access-Token:
+      - "<ASAAS_API_KEY>"
+      User-Agent:
+      - AsaasRuby/0.1.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Date:
+      - Sat, 23 May 2026 20:20:56 GMT
+      Server:
+      - nginx
+      Vary:
+      - Access-Control-Request-Headers
+      - Access-Control-Request-Method
+      - Origin
+      X-Cache:
+      - Miss from cloudfront
+      Via:
+      - 1.1 07c2ce2f526880d2d9a49a68d8e11008.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - GIG51-P3
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      X-Amz-Cf-Id:
+      - eYog4EhQxmkhv87Eq5krpOHYItYFMdDJCip3DcNAnnrSbOE4guosnw==
+    body:
+      encoding: UTF-8
+      string: '{"id":"wqq2duqpgybzbziz","name":"VCR Retrieve Link","value":75.00,"active":true,"chargeType":"DETACHED","url":"https://sandbox.asaas.com/c/wqq2duqpgybzbziz","billingType":"UNDEFINED","subscriptionCycle":null,"description":null,"endDate":"2026-12-31","deleted":false,"viewCount":0,"maxInstallmentCount":1,"dueDateLimitDays":5,"notificationEnabled":true,"isAddressRequired":null,"externalReference":null}'
+  recorded_at: Sat, 23 May 2026 20:20:57 GMT
+recorded_with: VCR 6.4.0

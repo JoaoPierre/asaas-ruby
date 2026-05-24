@@ -1,0 +1,109 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://sandbox.asaas.com/api/v3/customers
+    body:
+      encoding: UTF-8
+      string: '{"name":"VCR Notification Customer","email":"vcr-notification@test.com","cpfCnpj":"28588369141"}'
+    headers:
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      Access-Token:
+      - "<ASAAS_API_KEY>"
+      User-Agent:
+      - AsaasRuby/0.1.0
+      Idempotency-Key:
+      - 1d3cced6-7602-44f2-bbec-80fd2e760fae
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Date:
+      - Sat, 23 May 2026 20:18:01 GMT
+      Vary:
+      - Access-Control-Request-Headers
+      - Access-Control-Request-Method
+      - Origin
+      Set-Cookie:
+      - JSESSIONID=8C795789A6E49CDB0A6EB1A4B30B4CAD7EF21A7B59C8471B87F560200C8368DEDB0E57CF7E8AC443C789658233B5B6EB51FC781471E8A2C1088A2DD1048F29EE.n1;
+        Path=/; Secure; HttpOnly
+      Server:
+      - nginx
+      X-Cache:
+      - Miss from cloudfront
+      Via:
+      - 1.1 1921aa738be60545d4da0b894f61557e.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - GIG51-P3
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      X-Amz-Cf-Id:
+      - syvMsL4vG768-S86HONKXRW_gN_hSBBzLQ-rSTlz4myzbKian1OPZw==
+    body:
+      encoding: UTF-8
+      string: '{"object":"customer","id":"cus_000008024674","dateCreated":"2026-05-23","name":"VCR
+        Notification Customer","email":"vcr-notification@test.com","company":null,"phone":null,"mobilePhone":null,"address":null,"addressNumber":null,"complement":null,"province":null,"postalCode":null,"cpfCnpj":"28588369141","personType":"FISICA","deleted":false,"additionalEmails":null,"externalReference":null,"notificationDisabled":false,"observations":null,"municipalInscription":null,"stateInscription":null,"canDelete":true,"cannotBeDeletedReason":null,"canEdit":true,"cannotEditReason":null,"city":null,"cityName":null,"state":null,"country":"Brasil"}'
+  recorded_at: Sat, 23 May 2026 20:18:01 GMT
+- request:
+    method: get
+    uri: https://sandbox.asaas.com/api/v3/customers/cus_000008024674/notifications
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      Access-Token:
+      - "<ASAAS_API_KEY>"
+      User-Agent:
+      - AsaasRuby/0.1.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Date:
+      - Sat, 23 May 2026 20:18:01 GMT
+      Server:
+      - nginx
+      Vary:
+      - Access-Control-Request-Headers
+      - Access-Control-Request-Method
+      - Origin
+      X-Cache:
+      - Miss from cloudfront
+      Via:
+      - 1.1 982f68e5ce0c5125bcf7f53bb28a7988.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - GIG51-P3
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      X-Amz-Cf-Id:
+      - EjQA6pktsC_RXoOEtyxC639D_G6_TJ2w9Av5Nm2oLCkH8fSUtRDoRA==
+    body:
+      encoding: UTF-8
+      string: '{"object":"list","hasMore":false,"totalCount":8,"limit":10,"offset":0,"data":[{"object":"notification","id":"not_6vgcdmsou1u9ss16","customer":"cus_000008024674","enabled":true,"emailEnabledForProvider":true,"smsEnabledForProvider":false,"emailEnabledForCustomer":true,"smsEnabledForCustomer":false,"phoneCallEnabledForCustomer":false,"whatsappEnabledForCustomer":false,"event":"PAYMENT_RECEIVED","scheduleOffset":0,"deleted":false},{"object":"notification","id":"not_p9653oqx7heoaskb","customer":"cus_000008024674","enabled":true,"emailEnabledForProvider":true,"smsEnabledForProvider":false,"emailEnabledForCustomer":true,"smsEnabledForCustomer":false,"phoneCallEnabledForCustomer":false,"whatsappEnabledForCustomer":false,"event":"PAYMENT_OVERDUE","scheduleOffset":0,"deleted":false},{"object":"notification","id":"not_4glnz9cle77vuhgl","customer":"cus_000008024674","enabled":true,"emailEnabledForProvider":false,"smsEnabledForProvider":false,"emailEnabledForCustomer":true,"smsEnabledForCustomer":false,"phoneCallEnabledForCustomer":false,"whatsappEnabledForCustomer":false,"event":"PAYMENT_DUEDATE_WARNING","scheduleOffset":10,"deleted":false},{"object":"notification","id":"not_d20zkmvo7a8azysg","customer":"cus_000008024674","enabled":true,"emailEnabledForProvider":false,"smsEnabledForProvider":false,"emailEnabledForCustomer":true,"smsEnabledForCustomer":false,"phoneCallEnabledForCustomer":false,"whatsappEnabledForCustomer":false,"event":"PAYMENT_DUEDATE_WARNING","scheduleOffset":0,"deleted":false},{"object":"notification","id":"not_lb7xez4dbushumm0","customer":"cus_000008024674","enabled":true,"emailEnabledForProvider":false,"smsEnabledForProvider":false,"emailEnabledForCustomer":true,"smsEnabledForCustomer":false,"phoneCallEnabledForCustomer":false,"whatsappEnabledForCustomer":false,"event":"PAYMENT_CREATED","scheduleOffset":0,"deleted":false},{"object":"notification","id":"not_b0g8sgntxwlq3mpp","customer":"cus_000008024674","enabled":true,"emailEnabledForProvider":false,"smsEnabledForProvider":false,"emailEnabledForCustomer":true,"smsEnabledForCustomer":false,"phoneCallEnabledForCustomer":false,"whatsappEnabledForCustomer":false,"event":"PAYMENT_UPDATED","scheduleOffset":0,"deleted":false},{"object":"notification","id":"not_goa3j5onst9iqrqi","customer":"cus_000008024674","enabled":true,"emailEnabledForProvider":false,"smsEnabledForProvider":false,"emailEnabledForCustomer":true,"smsEnabledForCustomer":false,"phoneCallEnabledForCustomer":false,"whatsappEnabledForCustomer":false,"event":"SEND_LINHA_DIGITAVEL","scheduleOffset":0,"deleted":false},{"object":"notification","id":"not_k879izuz8dgdu492","customer":"cus_000008024674","enabled":true,"emailEnabledForProvider":false,"smsEnabledForProvider":false,"emailEnabledForCustomer":true,"smsEnabledForCustomer":false,"phoneCallEnabledForCustomer":false,"whatsappEnabledForCustomer":false,"event":"PAYMENT_OVERDUE","scheduleOffset":7,"deleted":false}]}'
+  recorded_at: Sat, 23 May 2026 20:18:01 GMT
+recorded_with: VCR 6.4.0
