@@ -16,3 +16,16 @@ VCR.configure do |config|
     ENV.fetch("ASAAS_API_KEY", "aact_test_fake")
   end
 end
+
+RSpec.configure do |config|
+  config.before(:suite) do
+    next if ENV.fetch("VCR_RECORD_MODE", "none") == "none"
+
+    ttl_days = Integer(ENV.fetch("VCR_TTL_DAYS", "30"))
+    cutoff = Time.now - (ttl_days * 86_400)
+
+    Dir.glob("spec/cassettes/**/*.yml").each do |cassette|
+      File.delete(cassette) if File.mtime(cassette) < cutoff
+    end
+  end
+end
