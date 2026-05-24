@@ -1,0 +1,101 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://sandbox.asaas.com/api/v3/dunnings
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      Access-Token:
+      - "<ASAAS_API_KEY>"
+      User-Agent:
+      - AsaasRuby/0.1.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 404
+      message: ''
+    headers:
+      Content-Length:
+      - '0'
+      Connection:
+      - keep-alive
+      Date:
+      - Sun, 24 May 2026 00:29:40 GMT
+      Vary:
+      - Access-Control-Request-Headers
+      - Access-Control-Request-Method
+      - Origin
+      Server:
+      - nginx
+      X-Cache:
+      - Error from cloudfront
+      Via:
+      - 1.1 1c95a03d94fd1bb3196521ca1057f0f2.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - GIG51-P3
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      X-Amz-Cf-Id:
+      - GGDOkItwn6fOMzmQK_1wnJMsxQYqdFNSnbUvWYu3PnIGpQQSYaALIg==
+    body:
+      encoding: UTF-8
+      string: ''
+  recorded_at: Sun, 24 May 2026 00:29:41 GMT
+- request:
+    method: get
+    uri: https://sandbox.asaas.com/api/v3/paymentDunnings
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      Access-Token:
+      - "<ASAAS_API_KEY>"
+      User-Agent:
+      - AsaasRuby/0.1.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Date:
+      - Sun, 24 May 2026 00:30:31 GMT
+      Server:
+      - nginx
+      Vary:
+      - Access-Control-Request-Headers
+      - Access-Control-Request-Method
+      - Origin
+      X-Cache:
+      - Miss from cloudfront
+      Via:
+      - 1.1 3deb8c79b706cdf9560d6be2907a5bae.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - GIG51-P3
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      X-Amz-Cf-Id:
+      - tbOvz1bOOi7msNmVNeJj3ePwgALDhwEl2AKDDTk3yMT32hqTp0nXwA==
+    body:
+      encoding: UTF-8
+      string: '{"object":"list","hasMore":false,"totalCount":0,"limit":10,"offset":0,"data":[]}'
+  recorded_at: Sun, 24 May 2026 00:30:31 GMT
+recorded_with: VCR 6.4.0

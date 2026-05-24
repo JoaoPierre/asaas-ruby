@@ -1,0 +1,102 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://sandbox.asaas.com/api/v3/pix/authorizations
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      Access-Token:
+      - "<ASAAS_API_KEY>"
+      User-Agent:
+      - AsaasRuby/0.1.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 404
+      message: ''
+    headers:
+      Content-Length:
+      - '0'
+      Connection:
+      - keep-alive
+      Date:
+      - Sun, 24 May 2026 00:29:41 GMT
+      Vary:
+      - Access-Control-Request-Headers
+      - Access-Control-Request-Method
+      - Origin
+      Server:
+      - nginx
+      X-Cache:
+      - Error from cloudfront
+      Via:
+      - 1.1 31a27e29d6b5b982fa8d2098c1663fea.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - GIG51-P3
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      X-Amz-Cf-Id:
+      - AR2MMqBR2ryvIFqKXaCBig2fB81lvJw0VgG9Yg5CwQIxDRGHkegdbg==
+    body:
+      encoding: UTF-8
+      string: ''
+  recorded_at: Sun, 24 May 2026 00:29:41 GMT
+- request:
+    method: get
+    uri: https://sandbox.asaas.com/api/v3/pix/automatic/authorizations
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      Access-Token:
+      - "<ASAAS_API_KEY>"
+      User-Agent:
+      - AsaasRuby/0.1.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 403
+      message: ''
+    headers:
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Date:
+      - Sun, 24 May 2026 00:30:31 GMT
+      Server:
+      - nginx
+      Vary:
+      - Access-Control-Request-Headers
+      - Access-Control-Request-Method
+      - Origin
+      X-Cache:
+      - Error from cloudfront
+      Via:
+      - 1.1 55386deb86c59f69358ba08b0e38ed30.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - GIG51-P3
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      X-Amz-Cf-Id:
+      - XFDZO9fp7i_nnXDQOaHRPI54vr3kcgIRV0OFTEj6hOgNLNFbnyxfEg==
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        eyJtZXNzYWdlIjoiVm9jw6ogbsOjbyBwb3NzdWkgcGVybWlzc8OjbyBwYXJhIHV0aWxpemFyIGVzdGUgcmVjdXJzby4gRW50cmUgZW0gY29udGF0byBjb20gc2V1IGdlcmVudGUgZGUgY29udGFzLiJ9
+  recorded_at: Sun, 24 May 2026 00:30:32 GMT
+recorded_with: VCR 6.4.0
