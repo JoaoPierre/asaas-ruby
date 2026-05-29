@@ -7,8 +7,8 @@ module Asaas
         base.private_class_method(:client)
       end
 
-      def client
-        Client.new
+      def client(opts = {})
+        Client.new(api_key: opts[:api_key])
       end
     end
   end

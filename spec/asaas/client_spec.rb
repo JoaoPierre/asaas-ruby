@@ -115,6 +115,39 @@ RSpec.describe Asaas::Client do
 
         expect(stub).to have_been_requested
       end
+
+      it "overrides the global api_key when one is passed to the constructor" do
+        override_key = "aact_override_fake"
+        stub = stub_request(:get, "#{base_url}/customers")
+               .with(headers: { "access_token" => override_key })
+               .to_return(status: 200, body: {}.to_json)
+
+        described_class.new(api_key: override_key).request(:get, "/customers")
+
+        expect(stub).to have_been_requested
+      end
+
+      it "falls back to the global api_key when override is nil" do
+        stub = stub_request(:get, "#{base_url}/customers")
+               .with(headers: { "access_token" => api_key })
+               .to_return(status: 200, body: {}.to_json)
+
+        described_class.new(api_key: nil).request(:get, "/customers")
+
+        expect(stub).to have_been_requested
+      end
+
+      it "uses the override even when the global api_key is unset" do
+        Asaas.configure { |c| c.api_key = nil }
+        override_key = "aact_override_fake"
+        stub = stub_request(:get, "#{base_url}/customers")
+               .with(headers: { "access_token" => override_key })
+               .to_return(status: 200, body: {}.to_json)
+
+        described_class.new(api_key: override_key).request(:get, "/customers")
+
+        expect(stub).to have_been_requested
+      end
     end
 
     context "error responses" do
