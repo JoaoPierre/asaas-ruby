@@ -34,6 +34,34 @@ end
 | `retry_delay` | `0.5` | Base delay in seconds (exponential backoff) |
 | `logger` | `nil` | Any Logger-compatible object |
 
+### Per-call API key
+
+Every resource method accepts a final positional options hash that overrides the global `api_key` — useful for multi-tenant apps and subaccount keys. When passing options, the `params` hash must be explicit.
+
+```ruby
+Asaas::Resources::Customer.retrieve("cus_123", api_key: "aact_subaccount_key")
+Asaas::Resources::Customer.list({ name: "João" }, api_key: "aact_subaccount_key")
+Asaas::Resources::Payment.create(
+  { customer: "cus_123", value: 10.0, billingType: "PIX", dueDate: "2025-12-31" },
+  api_key: "aact_subaccount_key"
+)
+Asaas::Resources::Finance.balance(api_key: "aact_subaccount_key")
+```
+
+`ListObject` pages returned with an override keep that override when paginated:
+
+```ruby
+list = Asaas::Resources::Customer.list({ limit: 50 }, api_key: "aact_subaccount_key")
+list.next_page  # also uses aact_subaccount_key
+```
+
+For direct `Client` usage:
+
+```ruby
+client = Asaas::Client.new(api_key: "aact_subaccount_key")
+client.request(:get, "/customers")
+```
+
 ## Usage
 
 All resources return `AsaasObject` instances with dot-access to attributes. List endpoints return `ListObject`, which supports pagination.

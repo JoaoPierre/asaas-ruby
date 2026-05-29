@@ -17,8 +17,9 @@ module Asaas
       delete: Net::HTTP::Delete
     }.freeze
 
-    def initialize(config = Asaas.config)
-      @config = config
+    def initialize(config = Asaas.config, api_key: nil)
+      @config  = config
+      @api_key = api_key || config.api_key
     end
 
     # @param method  [:get, :post, :put, :patch, :delete]
@@ -41,7 +42,7 @@ module Asaas
     private
 
     def validate_config!
-      return unless @config.api_key.nil? || @config.api_key.empty?
+      return unless @api_key.nil? || @api_key.empty?
 
       raise ConfigurationError, "Asaas.api_key is not set. Call Asaas.configure { |c| c.api_key = '...' }"
     end
@@ -56,7 +57,7 @@ module Asaas
       headers = {
         "Content-Type" => "application/json",
         "Accept" => "application/json",
-        "access_token" => @config.api_key,
+        "access_token" => @api_key,
         "User-Agent" => "AsaasRuby/#{Asaas::VERSION}"
       }
       headers["Idempotency-Key"] = idempotency_key if idempotency_key

@@ -5,8 +5,8 @@ module Asaas
     class PaymentLink < Base
       def self.resource_path = "/paymentLinks"
 
-      def self.add_image(id, params = {})
-        response = client.request(:post, "#{resource_path}/#{id}/images", params: params)
+      def self.add_image(id, params = {}, opts = {})
+        response = client(opts).request(:post, "#{resource_path}/#{id}/images", params: params)
         AsaasObject.construct_from(response)
       end
     end
