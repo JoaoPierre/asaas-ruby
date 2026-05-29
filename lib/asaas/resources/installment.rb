@@ -5,8 +5,8 @@ module Asaas
     class Installment < Base
       def self.resource_path = "/installments"
 
-      def self.update_splits(id, params = {})
-        response = client.request(:put, "#{resource_path}/#{id}/splits", params: params)
+      def self.update_splits(id, params = {}, opts = {})
+        response = client(opts).request(:put, "#{resource_path}/#{id}/splits", params: params)
         AsaasObject.construct_from(response)
       end
     end

@@ -8,23 +8,23 @@ module Asaas
       SPLITS_PAID = "/payments/splits/paid"
       SPLITS_RECEIVED = "/payments/splits/received"
 
-      def self.paid(params = {})
-        response = client.request(:get, SPLITS_PAID, params: params)
-        ListObject.construct_from(response, client: client, path: SPLITS_PAID, params: params)
+      def self.paid(params = {}, opts = {})
+        response = client(opts).request(:get, SPLITS_PAID, params: params)
+        ListObject.construct_from(response, client: client(opts), path: SPLITS_PAID, params: params)
       end
 
-      def self.received(params = {})
-        response = client.request(:get, SPLITS_RECEIVED, params: params)
-        ListObject.construct_from(response, client: client, path: SPLITS_RECEIVED, params: params)
+      def self.received(params = {}, opts = {})
+        response = client(opts).request(:get, SPLITS_RECEIVED, params: params)
+        ListObject.construct_from(response, client: client(opts), path: SPLITS_RECEIVED, params: params)
       end
 
-      def self.retrieve_paid(id)
-        response = client.request(:get, "#{SPLITS_PAID}/#{id}")
+      def self.retrieve_paid(id, opts = {})
+        response = client(opts).request(:get, "#{SPLITS_PAID}/#{id}")
         AsaasObject.construct_from(response)
       end
 
-      def self.retrieve_received(id)
-        response = client.request(:get, "#{SPLITS_RECEIVED}/#{id}")
+      def self.retrieve_received(id, opts = {})
+        response = client(opts).request(:get, "#{SPLITS_RECEIVED}/#{id}")
         AsaasObject.construct_from(response)
       end
     end

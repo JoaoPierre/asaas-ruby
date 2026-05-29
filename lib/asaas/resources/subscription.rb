@@ -5,10 +5,10 @@ module Asaas
     class Subscription < Base
       def self.resource_path = "/subscriptions"
 
-      def self.payments(id, params = {})
+      def self.payments(id, params = {}, opts = {})
         path = "#{resource_path}/#{id}/payments"
-        response = client.request(:get, path, params: params)
-        ListObject.construct_from(response, client: client, path: path, params: params)
+        response = client(opts).request(:get, path, params: params)
+        ListObject.construct_from(response, client: client(opts), path: path, params: params)
       end
     end
   end

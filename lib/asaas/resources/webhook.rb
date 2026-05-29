@@ -5,8 +5,8 @@ module Asaas
     class Webhook < Base
       def self.resource_path = "/webhooks"
 
-      def self.remove_penalty(id)
-        response = client.request(:post, "#{resource_path}/#{id}/removePenalty")
+      def self.remove_penalty(id, opts = {})
+        response = client(opts).request(:post, "#{resource_path}/#{id}/removePenalty")
         AsaasObject.construct_from(response)
       end
     end

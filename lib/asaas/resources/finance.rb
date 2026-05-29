@@ -5,20 +5,20 @@ module Asaas
     class Finance
       extend HasClient
 
-      def self.balance
-        response = client.request(:get, "/finance/account/balance")
+      def self.balance(opts = {})
+        response = client(opts).request(:get, "/finance/account/balance")
         AsaasObject.construct_from(response)
       end
 
-      def self.statistics(params = {})
-        response = client.request(:get, "/finance/payment/statistics", params: params)
+      def self.statistics(params = {}, opts = {})
+        response = client(opts).request(:get, "/finance/payment/statistics", params: params)
         AsaasObject.construct_from(response)
       end
 
-      def self.extract(params = {})
+      def self.extract(params = {}, opts = {})
         path = "/finance/account/extract"
-        response = client.request(:get, path, params: params)
-        ListObject.construct_from(response, client: client, path: path, params: params)
+        response = client(opts).request(:get, path, params: params)
+        ListObject.construct_from(response, client: client(opts), path: path, params: params)
       end
     end
   end

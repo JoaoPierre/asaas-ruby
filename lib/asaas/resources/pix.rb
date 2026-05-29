@@ -5,35 +5,35 @@ module Asaas
     class Pix
       extend HasClient
 
-      def self.create_key(params = {})
-        response = client.request(:post, "/pix/addressKeys", params: params)
+      def self.create_key(params = {}, opts = {})
+        response = client(opts).request(:post, "/pix/addressKeys", params: params)
         AsaasObject.construct_from(response)
       end
 
-      def self.list_keys(params = {})
+      def self.list_keys(params = {}, opts = {})
         path = "/pix/addressKeys"
-        response = client.request(:get, path, params: params)
-        ListObject.construct_from(response, client: client, path: path, params: params)
+        response = client(opts).request(:get, path, params: params)
+        ListObject.construct_from(response, client: client(opts), path: path, params: params)
       end
 
-      def self.delete_key(id)
-        response = client.request(:delete, "/pix/addressKeys/#{id}")
+      def self.delete_key(id, opts = {})
+        response = client(opts).request(:delete, "/pix/addressKeys/#{id}")
         AsaasObject.construct_from(response)
       end
 
-      def self.create_qr_code(params = {})
-        response = client.request(:post, "/pix/qrCodes/static", params: params)
+      def self.create_qr_code(params = {}, opts = {})
+        response = client(opts).request(:post, "/pix/qrCodes/static", params: params)
         AsaasObject.construct_from(response)
       end
 
-      def self.transactions(params = {})
+      def self.transactions(params = {}, opts = {})
         path = "/pix/transactions"
-        response = client.request(:get, path, params: params)
-        ListObject.construct_from(response, client: client, path: path, params: params)
+        response = client(opts).request(:get, path, params: params)
+        ListObject.construct_from(response, client: client(opts), path: path, params: params)
       end
 
-      def self.decode_qr_code(params = {})
-        response = client.request(:post, "/pix/qrCodes/decode", params: params)
+      def self.decode_qr_code(params = {}, opts = {})
+        response = client(opts).request(:post, "/pix/qrCodes/decode", params: params)
         AsaasObject.construct_from(response)
       end
     end
