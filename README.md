@@ -258,6 +258,45 @@ Asaas::Subaccount.create_api_key("sub_123")
 Asaas::Subaccount.api_keys("sub_123")
 ```
 
+### Account Status
+
+Authoritative KYC registration status for the authenticated account. Acts on
+`/myAccount`, so pass the subaccount's own key per call:
+
+```ruby
+status = Asaas::MyAccount.status(api_key: "aact_subaccount_key")
+status.commercialInfo   # => "APPROVED"
+status.documentation    # => "AWAITING_APPROVAL"
+status.bankAccountInfo  # => "PENDING"
+status.general          # => "PENDING"
+```
+
+### Documents (KYC)
+
+KYC documents for the authenticated account (`/myAccount/documents`). Pass the
+subaccount's own key per call:
+
+```ruby
+# List pending document groups (each with its onboardingUrl and sent files)
+groups = Asaas::Document.pending(api_key: "aact_subaccount_key")
+group  = groups.data.first
+group.onboardingUrl
+
+# Upload a file to a group (multipart). `file` is any IO that responds to #read.
+Asaas::Document.send_document(
+  group.id,
+  file: File.open("identity.png"),
+  type: "IDENTIFICATION",
+  api_key: "aact_subaccount_key"
+)
+
+# Remove a previously sent file
+Asaas::Document.delete_file("file_123", api_key: "aact_subaccount_key")
+```
+
+> Asaas recommends waiting ~15s after subaccount creation before listing
+> documents, so Receita Federal validation can finish.
+
 ### Bill Payments
 
 ```ruby
