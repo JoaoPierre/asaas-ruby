@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Resources: Finance, Pix, PaymentLink, Transfer, Installment
 - Resources: Checkout, Invoice, Split, Anticipation, Notification
 - Resources: Dunning, Chargeback, Subaccount, BillPayment, PixAutomatic
+- Resources: Document (KYC `/myAccount/documents` — `pending`, `send_document`, `delete_file`), MyAccount (`status`)
 - Error hierarchy with HTTP status mapping (`AuthenticationError`, `NotFoundError`, `RateLimitError`, `ServerError`, `ConnectionError`)
 - Automatic retry with exponential backoff on 5xx and network errors
 - Idempotency key on mutating requests (POST, PUT, PATCH)
