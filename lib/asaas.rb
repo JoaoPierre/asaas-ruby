@@ -29,6 +29,8 @@ require_relative "asaas/resources/subaccount"
 require_relative "asaas/resources/bill_payment"
 require_relative "asaas/resources/pix_automatic"
 require_relative "asaas/resources/sandbox"
+require_relative "asaas/resources/document"
+require_relative "asaas/resources/my_account"
 
 module Asaas
   @config = Configuration.new
