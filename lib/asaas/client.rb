@@ -26,17 +26,20 @@ module Asaas
     # @param path    [String]
     # @param params  [Hash]
     # @param headers [Hash]
+    # @param retryable [Boolean]
     # @return [Hash]
-    def request(method, path, params: {}, headers: {})
+    def request(method, path, params: {}, headers: {}, retryable: true)
       validate_config!
 
       uri = build_uri(path, method == :get ? params : {})
       body = method != :get ? params : {}
       idempotency_key = SecureRandom.uuid if IDEMPOTENT_METHODS.include?(method)
 
-      with_retries do
+      operation = lambda do
         perform(method, uri, body, build_headers(headers, idempotency_key))
       end
+
+      retryable ? with_retries(&operation) : operation.call
     end
 
     private
