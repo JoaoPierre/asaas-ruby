@@ -9,6 +9,38 @@ module Asaas
   class Client
     RETRY_STATUSES     = [429, 500, 502, 503, 504].freeze
     IDEMPOTENT_METHODS = %i[post put patch].freeze
+    MAX_LOG_BODY_BYTES = 200
+    SENSITIVE_LOG_KEYS = %w[
+      accesskey
+      accesssecret
+      accesstoken
+      apikey
+      apisecret
+      authkey
+      authenticationtoken
+      authorization
+      authtoken
+      bearertoken
+      clientsecret
+      creditcard
+      creditcardholderinfo
+      creditcardtoken
+      idtoken
+      password
+      privatekey
+      refreshtoken
+      cardnumber
+      creditcardnumber
+      ccv
+      cvv
+      number
+      remoteip
+      secret
+      secretkey
+      sessiontoken
+      token
+      webhooktoken
+    ].freeze
     HTTP_METHODS = {
       get: Net::HTTP::Get,
       post: Net::HTTP::Post,
@@ -27,16 +59,19 @@ module Asaas
     # @param params  [Hash]
     # @param headers [Hash]
     # @return [Hash]
-    def request(method, path, params: {}, headers: {})
+    def request(method, path, params: {}, headers: {}, retryable: true, timeout: nil, idempotency_key: nil) # rubocop:disable Metrics/ParameterLists
       validate_config!
 
       uri = build_uri(path, method == :get ? params : {})
-      body = method != :get ? params : {}
-      idempotency_key = SecureRandom.uuid if IDEMPOTENT_METHODS.include?(method)
-
-      with_retries do
-        perform(method, uri, body, build_headers(headers, idempotency_key))
+      body = method == :get ? {} : params
+      request_idempotency_key = idempotency_key_for(method, idempotency_key)
+      request_headers = build_headers(headers, request_idempotency_key)
+      if explicit_idempotency_key?(method, idempotency_key)
+        replace_idempotency_key(request_headers, request_idempotency_key)
       end
+      operation = -> { perform(method, uri, body, request_headers, timeout: timeout) }
+
+      retryable ? with_retries(&operation) : operation.call
     end
 
     private
@@ -64,11 +99,28 @@ module Asaas
       headers.merge(extra)
     end
 
-    def perform(method, uri, body, headers)
+    def idempotency_key_for(method, explicit_key)
+      return unless IDEMPOTENT_METHODS.include?(method)
+      return SecureRandom.uuid if explicit_key.nil?
+      return explicit_key.dup.freeze if explicit_key.is_a?(String) && !explicit_key.strip.empty?
+
+      raise ArgumentError, "idempotency_key must be a non-blank String"
+    end
+
+    def explicit_idempotency_key?(method, key)
+      IDEMPOTENT_METHODS.include?(method) && !key.nil?
+    end
+
+    def replace_idempotency_key(headers, key)
+      headers.delete_if { |name, _| name.to_s.casecmp?("Idempotency-Key") }
+      headers["Idempotency-Key"] = key
+    end
+
+    def perform(method, uri, body, headers, timeout: nil)
       http              = Net::HTTP.new(uri.host, uri.port)
       http.use_ssl      = uri.scheme == "https"
-      http.read_timeout = @config.timeout
-      http.open_timeout = @config.timeout
+      http.read_timeout = timeout || @config.timeout
+      http.open_timeout = timeout || @config.timeout
 
       req = build_request(method, uri, headers, body)
 
@@ -174,7 +226,7 @@ module Asaas
                  elsif multipart?(body)
                    " [multipart/form-data: #{body.keys.join(", ")}]"
                  else
-                   " #{body.to_json}"
+                   " #{sanitize(body).to_json}"
                  end
 
       @config.logger.debug("[Asaas] --> #{method.upcase} #{uri}#{body_log}")
@@ -183,7 +235,35 @@ module Asaas
     def log_response(res)
       return unless @config.logger
 
-      @config.logger.debug("[Asaas] <-- #{res.code} #{res.body&.slice(0, 200)}")
+      parsed_body = JSON.parse(res.body.to_s)
+      @config.logger.debug("[Asaas] <-- #{res.code} #{bounded_log_json(parsed_body)}")
+    rescue JSON::ParserError
+      @config.logger.debug("[Asaas] <-- #{res.code} #{res.body.to_s.bytesize} bytes")
+    end
+
+    def bounded_log_json(value)
+      sanitized_json = JSON.generate(sanitize(value))
+      return sanitized_json if sanitized_json.bytesize <= MAX_LOG_BODY_BYTES
+
+      JSON.generate("_truncated" => true, "_bytes" => sanitized_json.bytesize)
+    end
+
+    def sanitize(value)
+      case value
+      when Hash
+        value.each_with_object({}) do |(key, nested_value), sanitized|
+          sanitized[key] = sensitive_key?(key) ? "[FILTERED]" : sanitize(nested_value)
+        end
+      when Array
+        value.map { |nested_value| sanitize(nested_value) }
+      else
+        value
+      end
+    end
+
+    def sensitive_key?(key)
+      normalized_key = key.to_s.downcase.gsub(/[^a-z0-9]/, "")
+      SENSITIVE_LOG_KEYS.include?(normalized_key)
     end
   end
 end
