@@ -289,6 +289,13 @@ profile = {
   site: "https://lojapareceira.example"
 }
 Asaas::MyAccount.update_commercial_info(profile, api_key: "aact_subaccount_key")
+
+# Disable automatic retries for this POST if needed
+Asaas::MyAccount.update_commercial_info(
+  profile,
+  api_key: "aact_subaccount_key",
+  retryable: false
+)
 ```
 
 `incomeValue` is required when resubmitting commercial info. These methods act
