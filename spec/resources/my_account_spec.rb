@@ -49,6 +49,45 @@ RSpec.describe Asaas::Resources::MyAccount do
   end
 
   describe ".update_commercial_info" do
+    it "does not retry when retryable is false" do
+      Asaas.configure do |config|
+        config.max_retries = 2
+        config.retry_delay = 0
+      end
+      request = stub_request(:post, "#{ASAAS_BASE_URL}/myAccount/commercialInfo/")
+                .to_return(status: 503, body: {}.to_json)
+
+      expect do
+        described_class.update_commercial_info(
+          { incomeValue: 24_000.0 },
+          api_key: "aact_sub_key",
+          retryable: false
+        )
+      end.to raise_error(Asaas::ServerError)
+
+      expect(request).to have_been_requested.once
+    end
+
+    it "keeps retrying by default" do
+      Asaas.configure do |config|
+        config.max_retries = 1
+        config.retry_delay = 0
+      end
+      request = stub_request(:post, "#{ASAAS_BASE_URL}/myAccount/commercialInfo/")
+                .to_return(
+                  { status: 503, body: {}.to_json },
+                  { status: 200, body: { "incomeValue" => 24_000.0 }.to_json }
+                )
+
+      result = described_class.update_commercial_info(
+        { incomeValue: 24_000.0 },
+        api_key: "aact_sub_key"
+      )
+
+      expect(request).to have_been_requested.twice
+      expect(result.incomeValue).to eq(24_000.0)
+    end
+
     it "POSTs the full commercial profile and returns an AsaasObject" do
       profile = {
         incomeValue: 24_000.0,
