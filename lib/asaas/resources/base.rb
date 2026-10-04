@@ -10,7 +10,14 @@ module Asaas
       end
 
       def self.create(params = {}, opts = {})
-        response = client(opts).request(:post, resource_path, params: params)
+        response = client(opts).request(
+          :post,
+          resource_path,
+          params: params,
+          retryable: opts.fetch(:retryable, true),
+          timeout: opts[:timeout],
+          idempotency_key: opts[:idempotency_key]
+        )
         AsaasObject.construct_from(response)
       end
 
