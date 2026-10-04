@@ -58,6 +58,7 @@ module Asaas
     # @param path    [String]
     # @param params  [Hash]
     # @param headers [Hash]
+    # @param retryable [Boolean]
     # @return [Hash]
     def request(method, path, params: {}, headers: {}, retryable: true, timeout: nil, idempotency_key: nil) # rubocop:disable Metrics/ParameterLists
       validate_config!

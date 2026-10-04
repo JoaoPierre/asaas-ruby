@@ -271,7 +271,7 @@ Asaas::Subaccount.create_api_key("sub_123")
 Asaas::Subaccount.api_keys("sub_123")
 ```
 
-### Account Status
+### Account Status and Commercial Info
 
 Authoritative KYC registration status for the authenticated account. Acts on
 `/myAccount`, so pass the subaccount's own key per call:
@@ -282,7 +282,37 @@ status.commercialInfo   # => "APPROVED"
 status.documentation    # => "AWAITING_APPROVAL"
 status.bankAccountInfo  # => "PENDING"
 status.general          # => "PENDING"
+
+commercial_info = Asaas::MyAccount.commercial_info(api_key: "aact_subaccount_key")
+commercial_info.incomeValue
+
+# POST replaces the full applicable profile; include every applicable field.
+profile = {
+  personType: "JURIDICA",
+  cpfCnpj: "35381637000150",
+  companyType: "LIMITED",
+  companyName: "Loja Parceira Ltda",
+  incomeValue: 50_000.0,
+  email: "financeiro@lojapareceira.example",
+  mobilePhone: "11999999999",
+  postalCode: "01310100",
+  address: "Avenida Paulista",
+  addressNumber: "1000",
+  province: "Bela Vista",
+  site: "https://lojapareceira.example"
+}
+Asaas::MyAccount.update_commercial_info(profile, api_key: "aact_subaccount_key")
+
+# Disable automatic retries for this POST if needed
+Asaas::MyAccount.update_commercial_info(
+  profile,
+  api_key: "aact_subaccount_key",
+  retryable: false
+)
 ```
+
+`incomeValue` is required when resubmitting commercial info. These methods act
+on the authenticated account, so use that subaccount's API key.
 
 ### Documents (KYC)
 

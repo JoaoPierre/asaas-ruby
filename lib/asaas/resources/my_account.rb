@@ -14,6 +14,21 @@ module Asaas
         response = client(opts).request(:get, "/myAccount/status")
         AsaasObject.construct_from(response)
       end
+
+      def self.commercial_info(opts = {})
+        response = client(opts).request(:get, "/myAccount/commercialInfo/")
+        AsaasObject.construct_from(response)
+      end
+
+      def self.update_commercial_info(profile, opts = {})
+        response = client(opts).request(
+          :post,
+          "/myAccount/commercialInfo/",
+          params: profile,
+          retryable: opts.fetch(:retryable, true)
+        )
+        AsaasObject.construct_from(response)
+      end
     end
   end
 end
