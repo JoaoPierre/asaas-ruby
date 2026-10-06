@@ -113,6 +113,67 @@ RSpec.describe Asaas::Resources::Payment do
   end
 
   describe ".refund" do
+    it "does not retry an ambiguous refund when retryable is false" do
+      Asaas.configure do |config|
+        config.max_retries = 2
+        config.retry_delay = 0
+      end
+      request = stub_asaas(:post, "/payments/#{id}/refund", status: 503)
+
+      expect do
+        described_class.refund(id, {}, retryable: false)
+      end.to raise_error(Asaas::ServerError)
+
+      expect(request).to have_been_requested.once
+    end
+
+    it "keeps default retry behavior for existing refund callers" do
+      Asaas.configure do |config|
+        config.max_retries = 1
+        config.retry_delay = 0
+      end
+      request = stub_request(:post, "#{ASAAS_BASE_URL}/payments/#{id}/refund")
+                .to_return(status: 503, body: "{}")
+                .then.to_return(status: 200, body: payment_attrs.merge("status" => "REFUNDED").to_json)
+
+      result = described_class.refund(id)
+
+      expect(result.status).to eq("REFUNDED")
+      expect(request).to have_been_requested.twice
+    end
+
+    it "forwards a stable refund idempotency key and the original account credential" do
+      observed = nil
+      request = stub_request(:post, "#{ASAAS_BASE_URL}/payments/#{id}/refund")
+                .with(body: { "description" => "Order cancellation" })
+                .to_return do |outgoing|
+                  observed = outgoing
+                  { status: 200, body: payment_attrs.merge("status" => "REFUNDED").to_json }
+                end
+
+      result = described_class.refund(id, { description: "Order cancellation" },
+                                      api_key: "aact_override_fake", retryable: false,
+                                      idempotency_key: "scoby-refund-synthetic")
+
+      expect(result.status).to eq("REFUNDED")
+      expect(observed.headers.fetch("Idempotency-Key")).to eq("scoby-refund-synthetic")
+      expect(observed.headers.fetch("Access-Token")).to eq("aact_override_fake")
+      expect(request).to have_been_requested.once
+    end
+
+    it "applies the refund-specific timeout on the real HTTP transport" do
+      transports = []
+      allow(Net::HTTP).to receive(:new).and_wrap_original do |original, *args|
+        original.call(*args).tap { |transport| transports << transport }
+      end
+      stub_asaas(:post, "/payments/#{id}/refund", body: payment_attrs.merge("status" => "REFUNDED"))
+
+      described_class.refund(id, {}, timeout: 65, retryable: false)
+
+      expect(transports.last.read_timeout).to eq(65)
+      expect(transports.last.open_timeout).to eq(65)
+    end
+
     it "POSTs to /payments/:id/refund" do
       refunded = payment_attrs.merge("status" => "REFUNDED")
       stub_asaas(:post, "/payments/#{id}/refund", body: refunded)

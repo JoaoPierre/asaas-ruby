@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+- Forward per-call retry, timeout and idempotency options from `Payment.refund`
+  to the HTTP client, retaining existing default retry behavior.
+
 ### Added
 - `AsaasObject` with dot-access and recursive hash conversion
 - `ListObject` with `auto_paging_each` for transparent pagination
