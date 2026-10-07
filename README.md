@@ -115,6 +115,13 @@ Asaas::Payment.confirm_cash_receipt("pay_123", paymentDate: "2025-01-15")
 Asaas::Payment.payment_info("pay_123")
 ```
 
+`Payment.refund(id, params, opts)` also accepts per-call `retryable`, `timeout`
+and `idempotency_key` options, alongside `api_key`. Existing calls keep the
+configured retry policy by default. For a financial operation that must not be
+automatically repeated after an ambiguous response, set `retryable: false` and
+reconcile the payment before any new refund submission. Passing an idempotency
+key forwards the header; it does not by itself prove provider-side deduplication.
+
 ### Subscriptions
 
 ```ruby

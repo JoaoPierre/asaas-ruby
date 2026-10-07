@@ -11,7 +11,14 @@ module Asaas
       end
 
       def self.refund(id, params = {}, opts = {})
-        response = client(opts).request(:post, "#{resource_path}/#{id}/refund", params: params)
+        response = client(opts).request(
+          :post,
+          "#{resource_path}/#{id}/refund",
+          params: params,
+          retryable: opts.fetch(:retryable, true),
+          timeout: opts[:timeout],
+          idempotency_key: opts[:idempotency_key]
+        )
         AsaasObject.construct_from(response)
       end
 

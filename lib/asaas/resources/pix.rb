@@ -32,6 +32,21 @@ module Asaas
         ListObject.construct_from(response, client: client(opts), path: path, params: params)
       end
 
+      def self.retrieve_transaction(id, opts = {})
+        uuid = /\A[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\z/i
+        unless id.is_a?(String) && id.ascii_only? && id.match?(uuid)
+          raise ArgumentError, "Pix transaction ID must be a UUID"
+        end
+
+        response = client(opts).request(
+          :get,
+          "/pix/transactions/#{id}",
+          retryable: opts.fetch(:retryable, true),
+          timeout: opts[:timeout]
+        )
+        AsaasObject.construct_from(response)
+      end
+
       def self.decode_qr_code(params = {}, opts = {})
         response = client(opts).request(:post, "/pix/qrCodes/decode", params: params)
         AsaasObject.construct_from(response)
