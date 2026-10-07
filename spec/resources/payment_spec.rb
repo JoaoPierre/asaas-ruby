@@ -80,6 +80,32 @@ RSpec.describe Asaas::Resources::Payment do
   end
 
   describe ".retrieve" do
+    it "does not retry canonical reads when retryable is false" do
+      Asaas.configure do |config|
+        config.max_retries = 2
+        config.retry_delay = 0
+      end
+      request = stub_request(:get, "#{ASAAS_BASE_URL}/payments/#{id}")
+                .with(headers: { "access_token" => "sub_key" })
+                .to_return(status: 503, body: "{}")
+
+      expect do
+        described_class.retrieve(id, api_key: "sub_key", retryable: false, timeout: 3)
+      end.to raise_error(Asaas::ServerError)
+
+      expect(request).to have_been_requested.once
+    end
+
+    it "forwards a per-call read timeout to the SDK client" do
+      client = instance_double(Asaas::Client)
+      allow(described_class).to receive(:client).with({ api_key: "sub_key", retryable: false, timeout: 3 })
+                                                .and_return(client)
+      expect(client).to receive(:request).with(:get, "/payments/#{id}", retryable: false, timeout: 3)
+                                         .and_return(payment_attrs)
+
+      expect(described_class.retrieve(id, api_key: "sub_key", retryable: false, timeout: 3).id).to eq(id)
+    end
+
     it "GETs /payments/:id and returns an AsaasObject" do
       stub_asaas(:get, "/payments/#{id}", body: payment_attrs)
 
