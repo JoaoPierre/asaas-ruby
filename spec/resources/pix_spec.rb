@@ -71,4 +71,34 @@ RSpec.describe Asaas::Resources::Pix do
       expect(result.addressKey).to eq("joao@email.com")
     end
   end
+
+  describe ".retrieve_transaction" do
+    let(:id) { "06391ba9-cbf9-4926-8988-374ac5d71cae" }
+
+    it "reads one transaction with the original subaccount credential and no request body" do
+      request = stub_request(:get, "#{ASAAS_BASE_URL}/pix/transactions/#{id}")
+                .with(headers: { "access_token" => "synthetic-subaccount" }, body: "")
+                .to_return(status: 200, body: { id: id, type: "CREDIT_REFUND", value: 10 }.to_json)
+
+      result = described_class.retrieve_transaction(id, api_key: "synthetic-subaccount", retryable: false)
+
+      expect(result.id).to eq(id)
+      expect(result.value).to eq(10)
+      expect(request).to have_been_requested.once
+    end
+
+    it "rejects path traversal before sending a request" do
+      expect { described_class.retrieve_transaction("../payments/pay_other") }.to raise_error(ArgumentError)
+      expect(WebMock).not_to have_requested(:get, %r{pix/transactions})
+    end
+
+    it "does not retry a failed read when retryable is false" do
+      Asaas.config.max_retries = 2
+      request = stub_request(:get, "#{ASAAS_BASE_URL}/pix/transactions/#{id}")
+                .to_return(status: 500, body: { errors: [] }.to_json)
+
+      expect { described_class.retrieve_transaction(id, retryable: false) }.to raise_error(Asaas::ServerError)
+      expect(request).to have_been_requested.once
+    end
+  end
 end

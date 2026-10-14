@@ -22,7 +22,12 @@ module Asaas
       end
 
       def self.retrieve(id, opts = {})
-        response = client(opts).request(:get, "#{resource_path}/#{id}")
+        response = client(opts).request(
+          :get,
+          "#{resource_path}/#{id}",
+          retryable: opts.fetch(:retryable, true),
+          timeout: opts[:timeout]
+        )
         AsaasObject.construct_from(response)
       end
 
