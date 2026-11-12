@@ -23,7 +23,7 @@ Gem::Specification.new do |spec|
   spec.metadata["bug_tracker_uri"] = "#{spec.homepage}/issues"
   spec.metadata["rubygems_mfa_required"] = "true"
 
-  spec.files         = Dir["lib/**/*", "README.md", "LICENSE.txt"]
+  spec.files         = Dir["lib/**/*", "README.md", "LICENSE.txt", "CHANGELOG.md"]
   spec.require_paths = ["lib"]
 
   spec.add_development_dependency "rspec",         "~> 3.13"

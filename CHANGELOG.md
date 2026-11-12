@@ -7,15 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Changed
-- Renamed the gem to `asaas-sdk` (`asaas-ruby` is already taken on RubyGems).
-  The Ruby namespace is still `Asaas`; `require "asaas-sdk"` and `require "asaas"` both work.
+## [0.1.0] - 2026-11-11
 
-### Fixed
-- `Finance.balance` now calls `GET /finance/balance` and `Finance.extract` calls
-  `GET /financialTransactions`; both previously targeted non-existent routes.
-- Forward per-call retry, timeout and idempotency options from `Payment.refund`
-  to the HTTP client, retaining existing default retry behavior.
+First public release, published as `asaas-sdk`. The Ruby namespace is `Asaas`;
+both `require "asaas-sdk"` and `require "asaas"` load the SDK.
 
 ### Added
 - `AsaasObject` with dot-access and recursive hash conversion
@@ -23,15 +18,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `Resources::Base` with generic CRUD (`create`, `retrieve`, `update`, `delete`, `list`)
 - `HasClient` module for shared HTTP client access
 - Resources: Customer, Payment, Subscription, Webhook
-- Resources: Finance, Pix, PaymentLink, Transfer, Installment
+- Resources: Finance (`balance`, `statistics`, `extract`), Pix, PaymentLink, Transfer, Installment
 - Resources: Checkout, Invoice, Split, Anticipation, Notification
 - Resources: Dunning, Chargeback, Subaccount, BillPayment, PixAutomatic
 - Resources: Document (KYC `/myAccount/documents` — `pending`, `send_document`, `delete_file`), MyAccount (`status`)
+- Per-call options (`api_key`, retry, timeout, `idempotency_key`), including on `Payment.refund`
 - Error hierarchy with HTTP status mapping (`AuthenticationError`, `NotFoundError`, `RateLimitError`, `ServerError`, `ConnectionError`)
 - Automatic retry with exponential backoff on 5xx and network errors
 - Idempotency key on mutating requests (POST, PUT, PATCH)
 - Optional logger support
 
-## [0.1.0] - 2026-05-22
-
-- Initial release
+[Unreleased]: https://github.com/JoaoPierre/asaas-ruby/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/JoaoPierre/asaas-ruby/releases/tag/v0.1.0
