@@ -6,7 +6,7 @@ module Asaas
       extend HasClient
 
       def self.balance(opts = {})
-        response = client(opts).request(:get, "/finance/account/balance")
+        response = client(opts).request(:get, "/finance/balance")
         AsaasObject.construct_from(response)
       end
 
@@ -16,7 +16,7 @@ module Asaas
       end
 
       def self.extract(params = {}, opts = {})
-        path = "/finance/account/extract"
+        path = "/financialTransactions"
         response = client(opts).request(:get, path, params: params)
         ListObject.construct_from(response, client: client(opts), path: path, params: params)
       end
