@@ -6,15 +6,17 @@ module Asaas
 
     attr_reader :data, :has_more, :total_count, :limit, :offset
 
-    def initialize(attrs, client:, path:, params: {})
-      @data        = Array(attrs["data"]).map { AsaasObject.construct_from(_1) }
-      @has_more    = attrs["hasMore"] || false
-      @total_count = attrs["totalCount"]
-      @limit       = attrs["limit"]
-      @offset      = attrs["offset"] || 0
-      @client      = client
-      @path        = path
-      @params      = params
+    # request_options (retryable, timeout) also apply to every next_page call.
+    def initialize(attrs, client:, path:, params: {}, request_options: {})
+      @data            = Array(attrs["data"]).map { AsaasObject.construct_from(_1) }
+      @has_more        = attrs["hasMore"] || false
+      @total_count     = attrs["totalCount"]
+      @limit           = attrs["limit"]
+      @offset          = attrs["offset"] || 0
+      @client          = client
+      @path            = path
+      @params          = params
+      @request_options = request_options
     end
 
     def each(&block)
@@ -25,8 +27,8 @@ module Asaas
       return nil unless @has_more
 
       next_params = @params.merge("offset" => @offset + @limit, "limit" => @limit)
-      raw = @client.request(:get, @path, params: next_params)
-      self.class.new(raw, client: @client, path: @path, params: next_params)
+      raw = @client.request(:get, @path, params: next_params, **@request_options)
+      self.class.new(raw, client: @client, path: @path, params: next_params, request_options: @request_options)
     end
 
     def auto_paging_each(&block)
@@ -41,8 +43,8 @@ module Asaas
       end
     end
 
-    def self.construct_from(attrs, client:, path:, params: {})
-      new(attrs, client: client, path: path, params: params)
+    def self.construct_from(attrs, client:, path:, params: {}, request_options: {})
+      new(attrs, client: client, path: path, params: params, request_options: request_options)
     end
 
     def inspect

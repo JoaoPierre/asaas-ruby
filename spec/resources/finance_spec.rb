@@ -57,4 +57,37 @@ RSpec.describe Asaas::Resources::Finance do
       expect(stub).to have_been_requested
     end
   end
+
+  describe "per-call request options" do
+    let(:opts) { { api_key: "sub_key", retryable: false, timeout: 3 } }
+    let(:client) { instance_double(Asaas::Client) }
+
+    before { allow(described_class).to receive(:client).with(opts).and_return(client) }
+
+    it "forwards retryable and timeout on .balance" do
+      expect(client).to receive(:request).with(:get, "/finance/balance", retryable: false, timeout: 3)
+                                         .and_return({ "balance" => 1.0 })
+
+      described_class.balance(opts)
+    end
+
+    it "forwards retryable and timeout on .statistics" do
+      expect(client).to receive(:request)
+        .with(:get, "/finance/payment/statistics", params: { status: "PENDING" }, retryable: false, timeout: 3)
+        .and_return({ "value" => 1.0 })
+
+      described_class.statistics({ status: "PENDING" }, opts)
+    end
+
+    it "forwards retryable and timeout on .extract and its next pages" do
+      first = list_response([{ "id" => "ft_1" }]).merge("hasMore" => true, "limit" => 1, "offset" => 0)
+      expect(client).to receive(:request)
+        .with(:get, "/financialTransactions", params: {}, retryable: false, timeout: 3).and_return(first)
+      expect(client).to receive(:request)
+        .with(:get, "/financialTransactions", params: { "offset" => 1, "limit" => 1 }, retryable: false, timeout: 3)
+        .and_return(list_response([{ "id" => "ft_2" }]))
+
+      expect(described_class.extract({}, opts).auto_paging_each.map(&:id)).to eq(%w[ft_1 ft_2])
+    end
+  end
 end

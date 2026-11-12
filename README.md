@@ -131,6 +131,11 @@ automatically repeated after an ambiguous response, set `retryable: false` and
 reconcile the payment before any new refund submission. Passing an idempotency
 key forwards the header; it does not by itself prove provider-side deduplication.
 
+The generic `create`, `retrieve`, `update`, `delete` and `list` (including the
+pages `auto_paging_each` fetches), `Finance.balance`, `Finance.statistics`,
+`Finance.extract` and `Transfer.cancel` accept the same `retryable` and
+`timeout` options.
+
 ### Subscriptions
 
 ```ruby
@@ -192,7 +197,7 @@ Asaas::PaymentLink.add_image("lnk_123", image: "base64data")
 Asaas::Transfer.create(value: 500.0, walletId: "wal_abc")
 Asaas::Transfer.retrieve("tra_123")
 Asaas::Transfer.list
-Asaas::Transfer.delete("tra_123")  # cancel
+Asaas::Transfer.cancel("tra_123")  # DELETE /transfers/:id/cancel
 ```
 
 ### Installments

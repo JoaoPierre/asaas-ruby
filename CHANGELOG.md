@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-11-12
+
+### Added
+- `Transfer.cancel(id, opts)` calls `DELETE /transfers/:id/cancel`. `Transfer.delete`
+  hits `/transfers/:id`, which isn't the cancel endpoint.
+
+### Fixed
+- `update`, `delete`, `list`, `Finance.balance`, `Finance.statistics` and
+  `Finance.extract` now forward the per-call `retryable` and `timeout` options.
+  `ListObject#next_page` keeps them, so `auto_paging_each` honours them on every page.
+
 ## [0.1.0] - 2026-11-11
 
 First public release, published as `asaas-sdk`. The Ruby namespace is `Asaas`;

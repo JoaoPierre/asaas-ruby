@@ -41,12 +41,30 @@ RSpec.describe Asaas::Resources::Transfer do
   end
 
   describe ".delete" do
-    it "DELETEs /transfers/:id (cancel)" do
+    it "DELETEs /transfers/:id" do
       stub_asaas(:delete, "/transfers/#{id}", body: { "deleted" => true })
 
       result = described_class.delete(id)
 
       expect(result.deleted?).to be true
+    end
+  end
+
+  describe ".cancel" do
+    it "DELETEs /transfers/:id/cancel and returns the cancelled transfer" do
+      stub_asaas(:delete, "/transfers/#{id}/cancel", body: transfer_attrs.merge("status" => "CANCELLED"))
+
+      result = described_class.cancel(id)
+
+      expect(result.status).to eq("CANCELLED")
+    end
+
+    it "does not retry when retryable is false" do
+      request = stub_request(:delete, "#{ASAAS_BASE_URL}/transfers/#{id}/cancel")
+                .to_return(status: 503, body: { "errors" => [] }.to_json)
+
+      expect { described_class.cancel(id, retryable: false) }.to raise_error(Asaas::ServerError)
+      expect(request).to have_been_requested.once
     end
   end
 end
