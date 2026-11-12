@@ -71,6 +71,28 @@ RSpec.describe "Per-call api_key override" do
 
       expect(stub).to have_been_requested
     end
+
+    {
+      list: [:get, "/customers", -> { Asaas::Resources::Customer.list({}, retryable: false) }],
+      update: [:put, "/customers/cus_1", -> { Asaas::Resources::Customer.update("cus_1", {}, retryable: false) }],
+      delete: [:delete, "/customers/cus_1", -> { Asaas::Resources::Customer.delete("cus_1", retryable: false) }]
+    }.each do |name, (verb, path, call)|
+      it "does not retry .#{name} when retryable is false" do
+        request = stub_request(verb, "#{base_url}#{path}").to_return(status: 503, body: { "errors" => [] }.to_json)
+
+        expect { call.call }.to raise_error(Asaas::ServerError)
+        expect(request).to have_been_requested.once
+      end
+    end
+
+    it "forwards a per-call timeout on .list" do
+      client = instance_double(Asaas::Client)
+      allow(Asaas::Resources::Customer).to receive(:client).with({ timeout: 3 }).and_return(client)
+      expect(client).to receive(:request).with(:get, "/customers", params: {}, retryable: true, timeout: 3)
+                                         .and_return(list_response([]))
+
+      Asaas::Resources::Customer.list({}, timeout: 3)
+    end
   end
 
   describe "Resources with custom methods" do

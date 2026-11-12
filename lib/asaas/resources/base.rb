@@ -14,36 +14,31 @@ module Asaas
           :post,
           resource_path,
           params: params,
-          retryable: opts.fetch(:retryable, true),
-          timeout: opts[:timeout],
-          idempotency_key: opts[:idempotency_key]
+          idempotency_key: opts[:idempotency_key],
+          **request_options(opts)
         )
         AsaasObject.construct_from(response)
       end
 
       def self.retrieve(id, opts = {})
-        response = client(opts).request(
-          :get,
-          "#{resource_path}/#{id}",
-          retryable: opts.fetch(:retryable, true),
-          timeout: opts[:timeout]
-        )
+        response = client(opts).request(:get, "#{resource_path}/#{id}", **request_options(opts))
         AsaasObject.construct_from(response)
       end
 
       def self.update(id, params = {}, opts = {})
-        response = client(opts).request(:put, "#{resource_path}/#{id}", params: params)
+        response = client(opts).request(:put, "#{resource_path}/#{id}", params: params, **request_options(opts))
         AsaasObject.construct_from(response)
       end
 
       def self.delete(id, opts = {})
-        response = client(opts).request(:delete, "#{resource_path}/#{id}")
+        response = client(opts).request(:delete, "#{resource_path}/#{id}", **request_options(opts))
         AsaasObject.construct_from(response)
       end
 
       def self.list(params = {}, opts = {})
-        response = client(opts).request(:get, resource_path, params: params)
-        ListObject.construct_from(response, client: client(opts), path: resource_path, params: params)
+        response = client(opts).request(:get, resource_path, params: params, **request_options(opts))
+        ListObject.construct_from(response, client: client(opts), path: resource_path, params: params,
+                                            request_options: request_options(opts))
       end
     end
   end
