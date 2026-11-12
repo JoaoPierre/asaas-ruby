@@ -95,7 +95,7 @@ RSpec.describe "Per-call api_key override" do
     end
 
     it "uses the override on Finance.balance (no params arg)" do
-      stub = stub_request(:get, "#{base_url}/finance/account/balance")
+      stub = stub_request(:get, "#{base_url}/finance/balance")
              .with(headers: { "access_token" => override_key })
              .to_return(status: 200, body: { "balance" => 0 }.to_json)
 

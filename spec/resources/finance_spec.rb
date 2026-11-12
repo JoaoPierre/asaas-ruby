@@ -4,8 +4,8 @@ require "spec_helper"
 
 RSpec.describe Asaas::Resources::Finance do
   describe ".balance" do
-    it "GETs /finance/account/balance and returns an AsaasObject" do
-      stub_asaas(:get, "/finance/account/balance", body: { "balance" => 1500.0, "blockedBalance" => 0.0 })
+    it "GETs /finance/balance and returns an AsaasObject" do
+      stub_asaas(:get, "/finance/balance", body: { "balance" => 1500.0 })
 
       result = described_class.balance
 
@@ -36,14 +36,25 @@ RSpec.describe Asaas::Resources::Finance do
   end
 
   describe ".extract" do
-    it "GETs /finance/account/extract and returns a ListObject" do
-      entry = { "id" => "ext_1", "type" => "PAYMENT_RECEIVED", "value" => 100.0 }
-      stub_asaas(:get, "/finance/account/extract", body: list_response([entry]))
+    it "GETs /financialTransactions and returns a ListObject" do
+      entry = { "object" => "financialTransaction", "id" => "ft_1", "type" => "PAYMENT_RECEIVED",
+                "value" => 100.0, "balance" => 1500.0 }
+      stub_asaas(:get, "/financialTransactions", body: list_response([entry]))
 
       result = described_class.extract
 
       expect(result).to be_a(Asaas::ListObject)
       expect(result.first.type).to eq("PAYMENT_RECEIVED")
+    end
+
+    it "forwards date range and ordering params" do
+      stub = stub_request(:get, "#{ASAAS_BASE_URL}/financialTransactions")
+             .with(query: { "startDate" => "2026-11-01", "finishDate" => "2026-11-30", "order" => "desc" })
+             .to_return(status: 200, body: list_response([]).to_json)
+
+      described_class.extract(startDate: "2026-11-01", finishDate: "2026-11-30", order: "desc")
+
+      expect(stub).to have_been_requested
     end
   end
 end

@@ -158,11 +158,12 @@ Asaas::Pix.decode_qr_code(payload: "00020101...")
 
 ```ruby
 balance = Asaas::Finance.balance
-balance.balance         # => 1500.0
-balance.blockedBalance  # => 0.0
+balance.balance  # => 1500.0
 
 Asaas::Finance.statistics(billingType: "PIX")
-Asaas::Finance.extract
+
+# Account statement (GET /financialTransactions), paginated
+Asaas::Finance.extract(startDate: "2026-11-01", finishDate: "2026-11-30", order: "desc")
 ```
 
 ### Payment Links
