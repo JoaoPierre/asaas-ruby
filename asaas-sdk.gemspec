@@ -3,7 +3,7 @@
 require_relative "lib/asaas/version"
 
 Gem::Specification.new do |spec|
-  spec.name    = "asaas-ruby"
+  spec.name    = "asaas-sdk"
   spec.version = Asaas::VERSION
   spec.authors = ["JoaoPierre"]
   spec.email   = ["jppierre90@gmail.com"]
@@ -19,7 +19,9 @@ Gem::Specification.new do |spec|
 
   spec.metadata["homepage_uri"]    = spec.homepage
   spec.metadata["source_code_uri"] = spec.homepage
-  spec.metadata["changelog_uri"]   = "#{spec.homepage}/blob/main/CHANGELOG.md"
+  spec.metadata["changelog_uri"]   = "#{spec.homepage}/blob/master/CHANGELOG.md"
+  spec.metadata["bug_tracker_uri"] = "#{spec.homepage}/issues"
+  spec.metadata["rubygems_mfa_required"] = "true"
 
   spec.files         = Dir["lib/**/*", "README.md", "LICENSE.txt"]
   spec.require_paths = ["lib"]

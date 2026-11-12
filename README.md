@@ -1,4 +1,4 @@
-# asaas-ruby
+# asaas-sdk
 
 Ruby SDK for the [Asaas](https://www.asaas.com) payment gateway API.
 
@@ -7,14 +7,23 @@ Ruby SDK for the [Asaas](https://www.asaas.com) payment gateway API.
 Add to your Gemfile:
 
 ```ruby
-gem "asaas-ruby"
+gem "asaas-sdk"
 ```
 
 Or install directly:
 
 ```bash
-gem install asaas-ruby
+gem install asaas-sdk
 ```
+
+Until the first release is on RubyGems, install from GitHub:
+
+```ruby
+gem "asaas-sdk", github: "JoaoPierre/asaas-ruby"
+```
+
+The gem is published as `asaas-sdk`, but the namespace is `Asaas`
+(`Asaas.configure`, `Asaas::Resources::Payment`, ...).
 
 ## Configuration
 

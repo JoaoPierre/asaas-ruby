@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- Renamed the gem to `asaas-sdk` (`asaas-ruby` is already taken on RubyGems).
+  The Ruby namespace is still `Asaas`; `require "asaas-sdk"` and `require "asaas"` both work.
+
 ### Fixed
 - `Finance.balance` now calls `GET /finance/balance` and `Finance.extract` calls
   `GET /financialTransactions`; both previously targeted non-existent routes.

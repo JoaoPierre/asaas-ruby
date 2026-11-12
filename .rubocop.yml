@@ -28,3 +28,7 @@ Metrics/CyclomaticComplexity:
 
 Metrics/AbcSize:
   Enabled: false
+
+Naming/FileName:
+  Exclude:
+    - "lib/asaas-sdk.rb"
