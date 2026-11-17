@@ -91,37 +91,48 @@ All resources return `AsaasObject` instances with dot-access to attributes. List
 ### Customers
 
 ```ruby
-customer = Asaas::Customer.create(name: "João Silva", cpfCnpj: "000.000.000-00", email: "joao@example.com")
+customer = Asaas::Resources::Customer.create(name: "João Silva", cpfCnpj: "000.000.000-00", email: "joao@example.com")
 customer.id       # => "cus_..."
 customer.name     # => "João Silva"
 
-Asaas::Customer.retrieve("cus_123")
-Asaas::Customer.update("cus_123", name: "João Atualizado")
-Asaas::Customer.delete("cus_123")
-Asaas::Customer.restore("cus_123")
-Asaas::Customer.list(name: "João")
-Asaas::Customer.notifications("cus_123")
+Asaas::Resources::Customer.retrieve("cus_123")
+Asaas::Resources::Customer.update("cus_123", name: "João Atualizado")
+Asaas::Resources::Customer.delete("cus_123")
+Asaas::Resources::Customer.restore("cus_123")
+Asaas::Resources::Customer.list(name: "João")
+Asaas::Resources::Customer.notifications("cus_123")
 ```
 
 ### Payments
 
 ```ruby
-payment = Asaas::Payment.create(
+payment = Asaas::Resources::Payment.create(
   customer:    "cus_123",
   billingType: "PIX",
   value:       150.0,
   dueDate:     "2025-12-31"
 )
 
-Asaas::Payment.retrieve("pay_123")
-Asaas::Payment.update("pay_123", value: 200.0)
-Asaas::Payment.delete("pay_123")
-Asaas::Payment.restore("pay_123")
-Asaas::Payment.list(status: "PENDING")
-Asaas::Payment.refund("pay_123", value: 150.0)
-Asaas::Payment.capture("pay_123")
-Asaas::Payment.confirm_cash_receipt("pay_123", paymentDate: "2025-01-15")
-Asaas::Payment.payment_info("pay_123")
+Asaas::Resources::Payment.retrieve("pay_123")
+Asaas::Resources::Payment.update("pay_123", value: 200.0)
+Asaas::Resources::Payment.delete("pay_123")
+Asaas::Resources::Payment.restore("pay_123")
+Asaas::Resources::Payment.list(status: "PENDING")
+Asaas::Resources::Payment.refund("pay_123", value: 150.0)
+Asaas::Resources::Payment.capture("pay_123")  # pre-authorized card payment
+Asaas::Resources::Payment.receive_in_cash("pay_123", paymentDate: "2025-01-15", value: 100.0)
+Asaas::Resources::Payment.undo_received_in_cash("pay_123")
+Asaas::Resources::Payment.billing_info("pay_123")
+Asaas::Resources::Payment.status("pay_123")
+Asaas::Resources::Payment.identification_field("pay_123")  # boleto line
+Asaas::Resources::Payment.pay_with_card("pay_123", cardType: "CREDIT", cardToken: "tok_123")
+Asaas::Resources::Payment.refunds("pay_123")
+Asaas::Resources::Payment.refund_bank_slip("pay_123")
+Asaas::Resources::Payment.simulate(value: 100.0, installmentCount: 3, billingTypes: ["CREDIT_CARD"])
+Asaas::Resources::Payment.documents("pay_123")
+
+# Same API with a summarized response body
+Asaas::Resources::LeanPayment.create(customer: "cus_123", billingType: "PIX", value: 100.0, dueDate: "2025-12-31")
 ```
 
 `Payment.refund(id, params, opts)` also accepts per-call `retryable`, `timeout`
@@ -134,12 +145,14 @@ key forwards the header; it does not by itself prove provider-side deduplication
 The generic `create`, `retrieve`, `update`, `delete` and `list` (including the
 pages `auto_paging_each` fetches), `Finance.balance`, `Finance.statistics`,
 `Finance.extract` and `Transfer.cancel` accept the same `retryable` and
-`timeout` options.
+`timeout` options. So does every endpoint added in 0.2.0, and its
+mutating calls also take `idempotency_key` (pass a stable one on
+`Pix.pay_qr_code`, which moves money out of the account).
 
 ### Subscriptions
 
 ```ruby
-subscription = Asaas::Subscription.create(
+subscription = Asaas::Resources::Subscription.create(
   customer:    "cus_123",
   billingType: "PIX",
   value:       49.90,
@@ -147,150 +160,151 @@ subscription = Asaas::Subscription.create(
   nextDueDate: "2025-02-01"
 )
 
-Asaas::Subscription.retrieve("sub_123")
-Asaas::Subscription.update("sub_123", value: 59.90)
-Asaas::Subscription.delete("sub_123")
-Asaas::Subscription.list
-Asaas::Subscription.payments("sub_123")
+Asaas::Resources::Subscription.retrieve("sub_123")
+Asaas::Resources::Subscription.update("sub_123", value: 59.90)
+Asaas::Resources::Subscription.delete("sub_123")
+Asaas::Resources::Subscription.list
+Asaas::Resources::Subscription.payments("sub_123")
 ```
 
 ### Pix
 
 ```ruby
-Asaas::Pix.create_key(type: "EMAIL", key: "joao@example.com")
-Asaas::Pix.list_keys
-Asaas::Pix.delete_key("key_123")
+Asaas::Resources::Pix.create_key(type: "EMAIL", key: "joao@example.com")
+Asaas::Resources::Pix.list_keys
+Asaas::Resources::Pix.delete_key("key_123")
 
-qr = Asaas::Pix.create_qr_code(addressKey: "joao@example.com", value: 50.0)
+qr = Asaas::Resources::Pix.create_qr_code(addressKey: "joao@example.com", value: 50.0)
 qr.payload    # => "00020101..."
 
-Asaas::Pix.transactions(type: "CREDIT")
-Asaas::Pix.decode_qr_code(payload: "00020101...")
+Asaas::Resources::Pix.transactions(type: "CREDIT")
+Asaas::Resources::Pix.decode_qr_code(payload: "00020101...")
 ```
 
 ### Finance
 
 ```ruby
-balance = Asaas::Finance.balance
+balance = Asaas::Resources::Finance.balance
 balance.balance  # => 1500.0
 
-Asaas::Finance.statistics(billingType: "PIX")
+Asaas::Resources::Finance.statistics(billingType: "PIX")
 
 # Account statement (GET /financialTransactions), paginated
-Asaas::Finance.extract(startDate: "2026-11-01", finishDate: "2026-11-30", order: "desc")
+Asaas::Resources::Finance.extract(startDate: "2026-11-01", finishDate: "2026-11-30", order: "desc")
 ```
 
 ### Payment Links
 
 ```ruby
-link = Asaas::PaymentLink.create(name: "Produto X", value: 99.90, billingType: "UNDEFINED")
-Asaas::PaymentLink.retrieve("lnk_123")
-Asaas::PaymentLink.update("lnk_123", value: 149.90)
-Asaas::PaymentLink.delete("lnk_123")
-Asaas::PaymentLink.list
-Asaas::PaymentLink.add_image("lnk_123", image: "base64data")
+link = Asaas::Resources::PaymentLink.create(name: "Produto X", value: 99.90, billingType: "UNDEFINED")
+Asaas::Resources::PaymentLink.retrieve("lnk_123")
+Asaas::Resources::PaymentLink.update("lnk_123", value: 149.90)
+Asaas::Resources::PaymentLink.delete("lnk_123")
+Asaas::Resources::PaymentLink.list
+Asaas::Resources::PaymentLink.add_image("lnk_123", image: "base64data")
 ```
 
 ### Transfers
 
 ```ruby
-Asaas::Transfer.create(value: 500.0, walletId: "wal_abc")
-Asaas::Transfer.retrieve("tra_123")
-Asaas::Transfer.list
-Asaas::Transfer.cancel("tra_123")  # DELETE /transfers/:id/cancel
+Asaas::Resources::Transfer.create(value: 500.0, walletId: "wal_abc")
+Asaas::Resources::Transfer.retrieve("tra_123")
+Asaas::Resources::Transfer.list
+Asaas::Resources::Transfer.cancel("tra_123")  # DELETE /transfers/:id/cancel
 ```
 
 ### Installments
 
 ```ruby
-Asaas::Installment.create(customer: "cus_123", value: 1200.0, installmentCount: 12, billingType: "CREDIT_CARD")
-Asaas::Installment.retrieve("ins_123")
-Asaas::Installment.list
-Asaas::Installment.delete("ins_123")
-Asaas::Installment.update_splits("ins_123", splits: [{ walletId: "wal_1", percentualValue: 10.0 }])
+Asaas::Resources::Installment.create(customer: "cus_123", value: 1200.0, installmentCount: 12, billingType: "CREDIT_CARD")
+Asaas::Resources::Installment.retrieve("ins_123")
+Asaas::Resources::Installment.list
+Asaas::Resources::Installment.delete("ins_123")
+Asaas::Resources::Installment.update_splits("ins_123", splits: [{ walletId: "wal_1", percentualValue: 10.0 }])
 ```
 
 ### Webhooks
 
 ```ruby
-Asaas::Webhook.create(url: "https://example.com/webhook", email: "dev@example.com")
-Asaas::Webhook.retrieve("web_123")
-Asaas::Webhook.update("web_123", url: "https://example.com/new")
-Asaas::Webhook.delete("web_123")
-Asaas::Webhook.list
-Asaas::Webhook.remove_penalty("web_123")
+Asaas::Resources::Webhook.create(url: "https://example.com/webhook", email: "dev@example.com")
+Asaas::Resources::Webhook.retrieve("web_123")
+Asaas::Resources::Webhook.update("web_123", url: "https://example.com/new")
+Asaas::Resources::Webhook.delete("web_123")
+Asaas::Resources::Webhook.list
+Asaas::Resources::Webhook.remove_backoff("web_123")
 ```
 
 ### Notifications
 
 ```ruby
-Asaas::Notification.update("not_123", enabled: false)
-Asaas::Notification.update_batch(notifications: [{ id: "not_123", enabled: true }])
+Asaas::Resources::Notification.update("not_123", enabled: false)
+Asaas::Resources::Notification.update_batch(notifications: [{ id: "not_123", enabled: true }])
 ```
 
 ### Invoices
 
 ```ruby
-Asaas::Invoice.create(payment: "pay_123", serviceDescription: "Consultoria")
-Asaas::Invoice.retrieve("inv_123")
-Asaas::Invoice.update("inv_123", serviceDescription: "Desenvolvimento")
-Asaas::Invoice.delete("inv_123")
-Asaas::Invoice.list
+Asaas::Resources::Invoice.create(payment: "pay_123", serviceDescription: "Consultoria")
+Asaas::Resources::Invoice.retrieve("inv_123")
+Asaas::Resources::Invoice.update("inv_123", serviceDescription: "Desenvolvimento")
+Asaas::Resources::Invoice.delete("inv_123")
+Asaas::Resources::Invoice.list
 ```
 
 ### Anticipations
 
 ```ruby
-Asaas::Anticipation.simulate(payment: "pay_123")
-Asaas::Anticipation.create(payment: "pay_123")
-Asaas::Anticipation.retrieve("ant_123")
-Asaas::Anticipation.list
-Asaas::Anticipation.delete("ant_123")  # cancel
+Asaas::Resources::Anticipation.simulate(payment: "pay_123")
+Asaas::Resources::Anticipation.create(payment: "pay_123")
+Asaas::Resources::Anticipation.retrieve("ant_123")
+Asaas::Resources::Anticipation.list
+Asaas::Resources::Anticipation.delete("ant_123")  # cancel
 ```
 
 ### Splits
 
 ```ruby
-Asaas::Split.paid
-Asaas::Split.received
-Asaas::Split.retrieve_paid("spl_123")
-Asaas::Split.retrieve_received("spl_123")
+Asaas::Resources::Split.paid
+Asaas::Resources::Split.received
+Asaas::Resources::Split.retrieve_paid("spl_123")
+Asaas::Resources::Split.retrieve_received("spl_123")
 ```
 
 ### Checkouts
 
 ```ruby
-Asaas::Checkout.create(billingType: "UNDEFINED", totalValue: 150.0)
-Asaas::Checkout.retrieve("chk_123")
-Asaas::Checkout.delete("chk_123")  # cancel
+Asaas::Resources::Checkout.create(billingType: "UNDEFINED", totalValue: 150.0)
+Asaas::Resources::Checkout.retrieve("chk_123")
+Asaas::Resources::Checkout.delete("chk_123")  # cancel
 ```
 
 ### Dunning
 
 ```ruby
-Asaas::Dunning.create(payment: "pay_123", type: "CREDIT_BUREAU")
-Asaas::Dunning.retrieve("dun_123")
-Asaas::Dunning.list
-Asaas::Dunning.delete("dun_123")  # cancel
-Asaas::Dunning.resend_documents("dun_123")
+Asaas::Resources::Dunning.create(payment: "pay_123", type: "CREDIT_BUREAU")
+Asaas::Resources::Dunning.retrieve("dun_123")
+Asaas::Resources::Dunning.list
+Asaas::Resources::Dunning.delete("dun_123")  # cancel
+Asaas::Resources::Dunning.resend_documents("dun_123")
 ```
 
 ### Chargebacks
 
 ```ruby
-Asaas::Chargeback.list
-Asaas::Chargeback.retrieve("cbk_123")
-Asaas::Chargeback.dispute("cbk_123", description: "Item entregue conforme pedido")
+Asaas::Resources::Chargeback.list
+Asaas::Resources::Chargeback.retrieve("cbk_123")
+Asaas::Resources::Chargeback.dispute("cbk_123", description: "Item entregue conforme pedido")
 ```
 
 ### Subaccounts
 
 ```ruby
-Asaas::Subaccount.create(name: "Loja Parceira", email: "loja@example.com", cpfCnpj: "000.000.000-00")
-Asaas::Subaccount.retrieve("sub_123")
-Asaas::Subaccount.list
-Asaas::Subaccount.create_api_key("sub_123")
-Asaas::Subaccount.api_keys("sub_123")
+Asaas::Resources::Subaccount.create(name: "Loja Parceira", email: "loja@example.com", cpfCnpj: "000.000.000-00")
+Asaas::Resources::Subaccount.retrieve("sub_123")
+Asaas::Resources::Subaccount.list
+Asaas::Resources::Subaccount.create_access_token("sub_123", name: "production")
+Asaas::Resources::Subaccount.access_tokens("sub_123")
+Asaas::Resources::Subaccount.resend_activation_link("sub_123")
 ```
 
 ### Account Status and Commercial Info
@@ -299,13 +313,13 @@ Authoritative KYC registration status for the authenticated account. Acts on
 `/myAccount`, so pass the subaccount's own key per call:
 
 ```ruby
-status = Asaas::MyAccount.status(api_key: "aact_subaccount_key")
+status = Asaas::Resources::MyAccount.status(api_key: "aact_subaccount_key")
 status.commercialInfo   # => "APPROVED"
 status.documentation    # => "AWAITING_APPROVAL"
 status.bankAccountInfo  # => "PENDING"
 status.general          # => "PENDING"
 
-commercial_info = Asaas::MyAccount.commercial_info(api_key: "aact_subaccount_key")
+commercial_info = Asaas::Resources::MyAccount.commercial_info(api_key: "aact_subaccount_key")
 commercial_info.incomeValue
 
 # POST replaces the full applicable profile; include every applicable field.
@@ -323,10 +337,10 @@ profile = {
   province: "Bela Vista",
   site: "https://lojapareceira.example"
 }
-Asaas::MyAccount.update_commercial_info(profile, api_key: "aact_subaccount_key")
+Asaas::Resources::MyAccount.update_commercial_info(profile, api_key: "aact_subaccount_key")
 
 # Disable automatic retries for this POST if needed
-Asaas::MyAccount.update_commercial_info(
+Asaas::Resources::MyAccount.update_commercial_info(
   profile,
   api_key: "aact_subaccount_key",
   retryable: false
@@ -343,12 +357,12 @@ subaccount's own key per call:
 
 ```ruby
 # List pending document groups (each with its onboardingUrl and sent files)
-groups = Asaas::Document.pending(api_key: "aact_subaccount_key")
+groups = Asaas::Resources::Document.pending(api_key: "aact_subaccount_key")
 group  = groups.data.first
 group.onboardingUrl
 
 # Upload a file to a group (multipart). `file` is any IO that responds to #read.
-Asaas::Document.send_document(
+Asaas::Resources::Document.send_document(
   group.id,
   file: File.open("identity.png"),
   type: "IDENTIFICATION",
@@ -356,7 +370,7 @@ Asaas::Document.send_document(
 )
 
 # Remove a previously sent file
-Asaas::Document.delete_file("file_123", api_key: "aact_subaccount_key")
+Asaas::Resources::Document.delete_file("file_123", api_key: "aact_subaccount_key")
 ```
 
 > Asaas recommends waiting ~15s after subaccount creation before listing
@@ -365,18 +379,58 @@ Asaas::Document.delete_file("file_123", api_key: "aact_subaccount_key")
 ### Bill Payments
 
 ```ruby
-Asaas::BillPayment.create(identificationField: "123456789", value: 150.0)
-Asaas::BillPayment.retrieve("bil_123")
-Asaas::BillPayment.list
-Asaas::BillPayment.delete("bil_123")  # cancel
+Asaas::Resources::BillPayment.create(identificationField: "123456789", value: 150.0)
+Asaas::Resources::BillPayment.retrieve("bil_123")
+Asaas::Resources::BillPayment.list
+Asaas::Resources::BillPayment.delete("bil_123")  # cancel
 ```
 
 ### Pix Automatic
 
 ```ruby
-Asaas::PixAutomatic.create(customer: "cus_123", value: 99.90)
-Asaas::PixAutomatic.list
-Asaas::PixAutomatic.delete("aut_123")  # cancel
+Asaas::Resources::PixAutomatic.create(customer: "cus_123", value: 99.90)
+Asaas::Resources::PixAutomatic.list
+Asaas::Resources::PixAutomatic.delete("aut_123")  # cancel
+
+# Each charge an authorization schedules is a payment instruction
+Asaas::Resources::PixAutomatic.payment_instructions(authorization: "aut_123")
+Asaas::Resources::PixAutomatic.retry_payment_instruction("pi_123", dueDate: "2025-12-31")
+```
+
+### Escrow
+
+```ruby
+Asaas::Resources::Escrow.save_default_config(daysToExpire: 30, enabled: true)
+Asaas::Resources::Escrow.save_config("acc_123", daysToExpire: 30, enabled: true)
+Asaas::Resources::Payment.escrow("pay_123")
+Asaas::Resources::Escrow.finish("esc_123")
+```
+
+### Fiscal Info (NFS-e setup)
+
+```ruby
+Asaas::Resources::FiscalInfo.retrieve
+Asaas::Resources::FiscalInfo.municipal_options
+Asaas::Resources::FiscalInfo.services(description: "1.01")
+Asaas::Resources::FiscalInfo.nbs_codes
+Asaas::Resources::Invoice.authorize("inv_123")
+Asaas::Resources::Invoice.cancel("inv_123")
+```
+
+### Credit Bureau Reports and Mobile Recharges
+
+```ruby
+Asaas::Resources::CreditBureauReport.create(customer: "cus_123", state: "SP")
+Asaas::Resources::MobilePhoneRecharge.provider("11999999999")
+Asaas::Resources::MobilePhoneRecharge.create(phoneNumber: "11999999999", value: 20.0)
+```
+
+### PDF endpoints
+
+Payment books (carnês) come back as a binary `String`:
+
+```ruby
+File.binwrite("carne.pdf", Asaas::Resources::Installment.payment_book("ins_123"))
 ```
 
 ## Pagination
@@ -385,25 +439,25 @@ List endpoints return a `ListObject`. You can iterate the current page or all pa
 
 ```ruby
 # Current page only
-payments = Asaas::Payment.list(limit: 10)
+payments = Asaas::Resources::Payment.list(limit: 10)
 payments.each { |p| puts p.status }
 payments.total_count  # => 312
 payments.has_more     # => true
 
 # All pages — fetches next automatically
-Asaas::Payment.list.auto_paging_each do |payment|
+Asaas::Resources::Payment.list.auto_paging_each do |payment|
   puts payment.id
 end
 
 # As an Enumerator (lazy)
-Asaas::Payment.list.auto_paging_each.lazy.first(50)
+Asaas::Resources::Payment.list.auto_paging_each.lazy.first(50)
 ```
 
 ## Error Handling
 
 ```ruby
 begin
-  Asaas::Customer.retrieve("invalid_id")
+  Asaas::Resources::Customer.retrieve("invalid_id")
 rescue Asaas::NotFoundError => e
   puts e.message
   puts e.http_status   # => 404

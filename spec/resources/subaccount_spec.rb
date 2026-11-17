@@ -40,8 +40,8 @@ RSpec.describe Asaas::Resources::Subaccount do
   end
 
   describe ".create_api_key" do
-    it "POSTs to /accounts/:id/apiKeys and returns an AsaasObject" do
-      stub_asaas(:post, "/accounts/#{id}/apiKeys", body: { "id" => "key_1", "token" => "aact_xyz" })
+    it "POSTs to /accounts/:id/accessTokens (alias of .create_access_token) and returns an AsaasObject" do
+      stub_asaas(:post, "/accounts/#{id}/accessTokens", body: { "id" => "key_1", "token" => "aact_xyz" })
 
       result = described_class.create_api_key(id)
 
@@ -51,9 +51,9 @@ RSpec.describe Asaas::Resources::Subaccount do
   end
 
   describe ".api_keys" do
-    it "GETs /accounts/:id/apiKeys and returns a ListObject" do
+    it "GETs /accounts/:id/accessTokens (alias of .access_tokens) and returns a ListObject" do
       key = { "id" => "key_1", "token" => "aact_xyz" }
-      stub_asaas(:get, "/accounts/#{id}/apiKeys", body: list_response([key]))
+      stub_asaas(:get, "/accounts/#{id}/accessTokens", body: list_response([key]))
 
       result = described_class.api_keys(id)
 

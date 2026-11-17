@@ -29,8 +29,8 @@ RSpec.describe Asaas::Resources::Chargeback do
   end
 
   describe ".dispute" do
-    it "POSTs to /chargebacks/:id/disputes and returns an AsaasObject" do
-      stub_asaas(:post, "/chargebacks/#{id}/disputes", body: chargeback_attrs.merge("status" => "DISPUTE_REQUESTED"))
+    it "POSTs to /chargebacks/:id/dispute and returns an AsaasObject" do
+      stub_asaas(:post, "/chargebacks/#{id}/dispute", body: chargeback_attrs.merge("status" => "DISPUTE_REQUESTED"))
 
       result = described_class.dispute(id, description: "Item entregue conforme pedido")
 

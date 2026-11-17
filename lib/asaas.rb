@@ -32,6 +32,11 @@ require_relative "asaas/resources/pix_automatic"
 require_relative "asaas/resources/sandbox"
 require_relative "asaas/resources/document"
 require_relative "asaas/resources/my_account"
+require_relative "asaas/resources/lean_payment"
+require_relative "asaas/resources/escrow"
+require_relative "asaas/resources/credit_bureau_report"
+require_relative "asaas/resources/fiscal_info"
+require_relative "asaas/resources/mobile_phone_recharge"
 
 module Asaas
   @config = Configuration.new

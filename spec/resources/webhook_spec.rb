@@ -64,8 +64,8 @@ RSpec.describe Asaas::Resources::Webhook do
   end
 
   describe ".remove_penalty" do
-    it "POSTs to /webhooks/:id/removePenalty and returns an AsaasObject" do
-      stub_asaas(:post, "/webhooks/#{id}/removePenalty", body: webhook_attrs)
+    it "POSTs to /webhooks/:id/removeBackoff and returns an AsaasObject" do
+      stub_asaas(:post, "/webhooks/#{id}/removeBackoff", body: webhook_attrs)
 
       result = described_class.remove_penalty(id)
 

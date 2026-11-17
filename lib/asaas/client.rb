@@ -59,8 +59,9 @@ module Asaas
     # @param params  [Hash]
     # @param headers [Hash]
     # @param retryable [Boolean]
-    # @return [Hash]
-    def request(method, path, params: {}, headers: {}, retryable: true, timeout: nil, idempotency_key: nil) # rubocop:disable Metrics/ParameterLists
+    # @param raw     [Boolean] return the body as a String (PDF endpoints) instead of parsed JSON
+    # @return [Hash, String]
+    def request(method, path, params: {}, headers: {}, retryable: true, timeout: nil, idempotency_key: nil, raw: false) # rubocop:disable Metrics/ParameterLists
       validate_config!
 
       uri = build_uri(path, method == :get ? params : {})
@@ -70,7 +71,7 @@ module Asaas
       if explicit_idempotency_key?(method, idempotency_key)
         replace_idempotency_key(request_headers, request_idempotency_key)
       end
-      operation = -> { perform(method, uri, body, request_headers, timeout: timeout) }
+      operation = -> { parse_response(perform(method, uri, body, request_headers, timeout: timeout), raw: raw) }
 
       retryable ? with_retries(&operation) : operation.call
     end
@@ -135,7 +136,7 @@ module Asaas
       end
 
       log_response(res)
-      parse_response(res)
+      res
     end
 
     def build_request(method, uri, headers, body)
@@ -168,14 +169,13 @@ module Asaas
       end
     end
 
-    def parse_response(res)
+    def parse_response(res, raw: false)
       status     = res.code.to_i
       request_id = res["X-Request-Id"]
-      body       = parse_body(res.body)
 
-      raise Asaas.error_for_status(status, body, request_id) unless (200..299).cover?(status)
+      raise Asaas.error_for_status(status, parse_body(res.body), request_id) unless (200..299).cover?(status)
 
-      body
+      raw ? res.body.to_s.b : parse_body(res.body)
     end
 
     def parse_body(raw)

@@ -6,7 +6,7 @@ module Asaas
       def self.resource_path = "/chargebacks"
 
       def self.dispute(id, params = {}, opts = {})
-        response = client(opts).request(:post, "#{resource_path}/#{id}/disputes", params: params)
+        response = client(opts).request(:post, "#{resource_path}/#{id}/dispute", params: params)
         AsaasObject.construct_from(response)
       end
     end

@@ -5,15 +5,28 @@ module Asaas
     class Subaccount < Base
       def self.resource_path = "/accounts"
 
-      def self.create_api_key(id, opts = {})
-        response = client(opts).request(:post, "#{resource_path}/#{id}/apiKeys")
-        AsaasObject.construct_from(response)
+      def self.create_access_token(id, params = {}, opts = {})
+        request_object(:post, "#{resource_path}/#{id}/accessTokens", params, opts)
       end
 
-      def self.api_keys(id, params = {}, opts = {})
-        path = "#{resource_path}/#{id}/apiKeys"
-        response = client(opts).request(:get, path, params: params)
-        ListObject.construct_from(response, client: client(opts), path: path, params: params)
+      def self.access_tokens(id, params = {}, opts = {})
+        request_list("#{resource_path}/#{id}/accessTokens", params, opts)
+      end
+
+      def self.update_access_token(id, access_token_id, params = {}, opts = {})
+        request_object(:put, "#{resource_path}/#{id}/accessTokens/#{access_token_id}", params, opts)
+      end
+
+      def self.delete_access_token(id, access_token_id, opts = {})
+        request_object(:delete, "#{resource_path}/#{id}/accessTokens/#{access_token_id}", {}, opts)
+      end
+
+      def self.create_api_key(id, opts = {}) = create_access_token(id, {}, opts)
+      def self.api_keys(id, params = {}, opts = {}) = access_tokens(id, params, opts)
+
+      # Non-BaaS subaccounts only.
+      def self.resend_activation_link(id, opts = {})
+        request_object(:post, "#{resource_path}/#{id}/resendActivationLink", {}, opts)
       end
     end
   end

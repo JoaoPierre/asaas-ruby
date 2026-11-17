@@ -18,9 +18,9 @@ RSpec.describe Asaas::Resources::Notification do
   end
 
   describe ".update_batch" do
-    it "PUTs to /notifications and returns an AsaasObject" do
+    it "PUTs to /notifications/batch and returns an AsaasObject" do
       batch_response = { "notifications" => [notification_attrs] }
-      stub_asaas(:put, "/notifications", body: batch_response)
+      stub_asaas(:put, "/notifications/batch", body: batch_response)
 
       result = described_class.update_batch(notifications: [{ id: id, enabled: true }])
 
