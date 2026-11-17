@@ -21,6 +21,10 @@ module Asaas
         ListObject.construct_from(response, client: client(opts), path: path, params: params,
                                             request_options: request_options(opts))
       end
+
+      def self.split_statistics(params = {}, opts = {})
+        request_object(:get, "/finance/split/statistics", params, opts)
+      end
     end
   end
 end

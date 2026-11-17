@@ -212,8 +212,8 @@ RSpec.describe Asaas::Resources::Payment do
   end
 
   describe ".capture" do
-    it "POSTs to /payments/:id/capture" do
-      stub_asaas(:post, "/payments/#{id}/capture", body: payment_attrs.merge("status" => "CONFIRMED"))
+    it "POSTs to /payments/:id/captureAuthorizedPayment" do
+      stub_asaas(:post, "/payments/#{id}/captureAuthorizedPayment", body: payment_attrs.merge("status" => "CONFIRMED"))
 
       result = described_class.capture(id)
 
@@ -223,8 +223,8 @@ RSpec.describe Asaas::Resources::Payment do
   end
 
   describe ".confirm_cash_receipt" do
-    it "POSTs to /payments/:id/confirmCashReceipt" do
-      stub_asaas(:post, "/payments/#{id}/confirmCashReceipt", body: payment_attrs.merge("status" => "RECEIVED"))
+    it "POSTs to /payments/:id/receiveInCash (alias of .receive_in_cash)" do
+      stub_asaas(:post, "/payments/#{id}/receiveInCash", body: payment_attrs.merge("status" => "RECEIVED"))
 
       result = described_class.confirm_cash_receipt(id, paymentDate: "2025-01-01")
 
@@ -234,9 +234,9 @@ RSpec.describe Asaas::Resources::Payment do
   end
 
   describe ".payment_info" do
-    it "GETs /payments/:id/paymentInfo" do
+    it "GETs /payments/:id/billingInfo (alias of .billing_info)" do
       info = { "bankSlipUrl" => "https://example.com/boleto", "expirationDate" => "2025-12-31" }
-      stub_asaas(:get, "/payments/#{id}/paymentInfo", body: info)
+      stub_asaas(:get, "/payments/#{id}/billingInfo", body: info)
 
       result = described_class.payment_info(id)
 

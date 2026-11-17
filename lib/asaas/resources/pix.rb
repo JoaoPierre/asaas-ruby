@@ -51,6 +51,53 @@ module Asaas
         response = client(opts).request(:post, "/pix/qrCodes/decode", params: params)
         AsaasObject.construct_from(response)
       end
+
+      def self.retrieve_key(id, opts = {})
+        request_object(:get, "/pix/addressKeys/#{id}", {}, opts)
+      end
+
+      # Looks up someone else's Pix key (DICT): params { key: "..." }.
+      def self.find_external_key(params = {}, opts = {})
+        request_object(:get, "/pix/addressKeys/external", params, opts)
+      end
+
+      def self.token_bucket(opts = {})
+        request_object(:get, "/pix/tokenBucket/addressKey", {}, opts)
+      end
+
+      def self.delete_qr_code(id, opts = {})
+        request_object(:delete, "/pix/qrCodes/static/#{id}", {}, opts)
+      end
+
+      # Pays a QR Code: money leaves the account. Pass a stable opts[:idempotency_key].
+      def self.pay_qr_code(params = {}, opts = {})
+        request_object(:post, "/pix/qrCodes/pay", params, opts)
+      end
+
+      # Cancels a scheduled transaction.
+      def self.cancel_transaction(id, opts = {})
+        request_object(:post, "/pix/transactions/#{id}/cancel", {}, opts)
+      end
+
+      def self.recurrings(params = {}, opts = {})
+        request_list("/pix/transactions/recurrings", params, opts)
+      end
+
+      def self.retrieve_recurring(id, opts = {})
+        request_object(:get, "/pix/transactions/recurrings/#{id}", {}, opts)
+      end
+
+      def self.cancel_recurring(id, opts = {})
+        request_object(:post, "/pix/transactions/recurrings/#{id}/cancel", {}, opts)
+      end
+
+      def self.recurring_items(id, params = {}, opts = {})
+        request_list("/pix/transactions/recurrings/#{id}/items", params, opts)
+      end
+
+      def self.cancel_recurring_item(item_id, opts = {})
+        request_object(:post, "/pix/transactions/recurrings/items/#{item_id}/cancel", {}, opts)
+      end
     end
   end
 end

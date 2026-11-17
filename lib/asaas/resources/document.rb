@@ -30,6 +30,15 @@ module Asaas
         response = client(opts).request(:delete, "#{resource_path}/files/#{file_id}")
         AsaasObject.construct_from(response)
       end
+
+      def self.retrieve_file(file_id, opts = {})
+        request_object(:get, "#{resource_path}/files/#{file_id}", {}, opts)
+      end
+
+      # Replaces a sent file (multipart): `file` is any IO that responds to #read.
+      def self.update_file(file_id, file:, **opts)
+        request_object(:post, "#{resource_path}/files/#{file_id}", { documentFile: file }, opts)
+      end
     end
   end
 end

@@ -29,6 +29,33 @@ module Asaas
         )
         AsaasObject.construct_from(response)
       end
+
+      def self.account_number(opts = {})
+        request_object(:get, "/myAccount/accountNumber", {}, opts)
+      end
+
+      def self.fees(opts = {})
+        request_object(:get, "/myAccount/fees/", {}, opts)
+      end
+
+      def self.wallets(opts = {})
+        request_list("/wallets/", {}, opts)
+      end
+
+      # Invoice page customization (logo and colors; the logo goes multipart as an IO).
+      def self.payment_checkout_config(opts = {})
+        request_object(:get, "/myAccount/paymentCheckoutConfig/", {}, opts)
+      end
+
+      def self.update_payment_checkout_config(params = {}, opts = {})
+        request_object(:post, "/myAccount/paymentCheckoutConfig/", params, opts)
+      end
+
+      # Deletes the White Label subaccount that owns the api_key: params { removeReason: "..." }.
+      def self.delete_white_label(params = {}, opts = {})
+        query = params.empty? ? "" : "?#{URI.encode_www_form(params)}"
+        request_object(:delete, "/myAccount/#{query}", {}, opts)
+      end
     end
   end
 end

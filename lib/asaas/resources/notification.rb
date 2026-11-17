@@ -11,7 +11,7 @@ module Asaas
       end
 
       def self.update_batch(params = {}, opts = {})
-        response = client(opts).request(:put, "/notifications", params: params)
+        response = client(opts).request(:put, "/notifications/batch", params: params)
         AsaasObject.construct_from(response)
       end
     end
